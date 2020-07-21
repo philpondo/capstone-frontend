@@ -3,7 +3,10 @@
     <h1>{{ message }}</h1>
     <div v-for="post in posts">
       <h2>{{post.title}}</h2>
-      <p>{{post.user_name}} | {{post.user_rank}} | {{post.user_playstyle}}</p>
+      <router-link v-bind:to="`/users/${post.user_id}`">
+        <p>{{post.user_name}}</p>
+      </router-link>
+      <p>{{post.user_rank}} | {{post.user_playstyle}}</p>
       <p>Players Needed: {{post.players_needed}}</p>
       <p>{{post.content}}</p>
       <button>Send message</button>
