@@ -2,7 +2,7 @@
   <div class="home">
     <h1>{{ message }}</h1>
     <div v-for="post in posts">
-      <h2>{{post.title}}</h2>
+      <h4>{{post.title}}</h4>
       <router-link v-bind:to="`/users/${post.user_id}`">
         <p>{{post.user_name}}</p>
       </router-link>

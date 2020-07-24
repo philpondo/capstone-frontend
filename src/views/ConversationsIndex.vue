@@ -20,25 +20,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row">
-                <div v-for="message in messages">
-                  <div v-if="message.user_id === partner.id">
-                    <div class=".col-md-6">
-                      <p>{{message.user_name}}:</p>
-                      <p>{{message.text}}</p>
-                      <p>{{relativeDate(message.created_at)}}</p>
-                    </div>
-                  </div>
-                  <div v-if="message.user_id !== partner.id">
-                    <div class="col-md-6 ml-auto">
-                      <p>{{message.user_name}}:</p>
-                      <p>{{message.text}}</p>
-                      <p>{{relativeDate(message.created_at)}}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div v-for="message in messages">
+              <p>{{message.user_name}}:</p>
+              <p>{{message.text}}</p>
+              <p>{{relativeDate(message.created_at)}}</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -46,12 +31,12 @@
               <div class="row">
                 <div class="col-md-9">
                   <div class="form-group">
-                    <textarea class="form-control" placeholder="Message..."></textarea> 
+                    <textarea class="form-control" v-model="text" placeholder="Message..."></textarea> 
                   </div>
                 </div>
                 <div class="col-5 col-md-3">
                   <div class="form-group">
-                    <button type="button" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
                   </div>
                 </div>
               </div>
@@ -73,6 +58,8 @@ export default {
       currentConversation: {},
       messages: [],
       partner: {},
+      text: "",
+      conversationId: "",
     };
   },
   created: function () {
@@ -92,6 +79,14 @@ export default {
     },
     relativeDate: function (date) {
       return moment(date).fromNow();
+    },
+    createMessage: function () {
+      var formData = new FormData();
+      formData.append("text", this.text);
+      formData.append("conversation_id", this.currentConversation.id);
+      axios.post("/api/messages", formData).then((response) => {
+        window.location.reload();
+      });
     },
   },
 };
