@@ -1,55 +1,71 @@
 <template>
   <div class="posts-new">
-    <form v-on:submit.prevent="createPost()">
-      <h1>New Post</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors">{{ error }}</li>
-      </ul>
-      <div class="form-group">
-        <label>Title:</label>
-        <input type="text" class="form-control" v-model="title" />
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card text-center text-white bg-dark mb-3">
+            <form v-on:submit.prevent="createPost()">
+              <div class="card-header">
+                <h4>New Post</h4>
+              </div>
+              <div class="card-body">
+                <div class="container">
+                  <ul>
+                    <li class="text-danger" v-for="error in errors">{{ error }}</li>
+                  </ul>
+                  <div class="form-group">
+                    <label class="col-form-label">Title:</label>
+                    <input type="text" class="form-control" v-model="title" />
+                  </div>
+                  <div class="form-group">
+                    <label>Players Needed:</label>
+                    <input type="text" class="form-control" v-model="playersNeeded" />
+                  </div>
+                  <div class="form-group">
+                    <label>Content:</label>
+                    <textarea class="form-control" v-model="content"></textarea> 
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <input type="submit" class="btn btn-primary" value="Create" />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Players Needed:</label>
-        <input type="text" class="form-control" v-model="playersNeeded" />
-      </div>
-      <div class="form-group">
-        <label>Content:</label>
-        <input type="text" class="form-control" v-model="content" />
-      </div>
-      <input type="submit" class="btn btn-primary" value="Create" />
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  data: function() {
+  data: function () {
     return {
       title: "",
       playersNeeded: "",
       content: "",
-      errors: []
+      errors: [],
     };
   },
-  created: function() {},
+  created: function () {},
   methods: {
-    createPost: function() {
+    createPost: function () {
       var params = {
         title: this.title,
         players_needed: this.playersNeeded,
-        content: this.content
+        content: this.content,
       };
       axios
         .post("api/posts", params)
-        .then(response => {
+        .then((response) => {
           this.$router.push("/");
         })
-        .catch(error => {
+        .catch((error) => {
           this.errors = error.response.data.errors;
         });
-    }
-  }
+    },
+  },
 };
 </script>
