@@ -22,7 +22,7 @@
                       <p>Players Needed: {{post.players_needed}}</p>
                       <p>{{post.content}}</p>
                     </div>
-                    <div class="col-md">
+                    <div v-if="$parent.isLoggedIn()" class="col-md">
                       <button type="button" class="btn btn-primary">Send message</button>
                     </div>
                   </div>
