@@ -20,18 +20,18 @@
 <script>
 import axios from "axios";
 export default {
-  data: function() {
+  data: function () {
     return {
       message: "GoPlay",
-      posts: []
+      posts: [],
     };
   },
-  created: function() {
-    axios.get("/api/posts").then(response => {
+  created: function () {
+    axios.get("/api/posts").then((response) => {
       console.log("All Posts:", response.data);
       this.posts = response.data;
     });
   },
-  methods: {}
+  methods: {},
 };
 </script>
