@@ -12,17 +12,17 @@
               <div class="card-body">
                 <div class="container">
                   <div class="row align-items-center">
-                    <div class="col-md">
+                    <div class="col-sm-3">
                       <router-link v-bind:to="`/users/${post.user_id}`">
                         <h5>{{post.user_name}}</h5>
                       </router-link>
                       <p>{{post.user_rank}} // {{post.user_playstyle}}</p>
                     </div>
-                    <div class="col-md">
-                      <p>Players Needed: {{post.players_needed}}</p>
+                    <div class="col-md-6">
                       <p>{{post.content}}</p>
+                      <p>Players Needed: {{post.players_needed}}</p>
                     </div>
-                    <div v-if="$parent.isLoggedIn()" class="col-md">
+                    <div v-if="$parent.isLoggedIn()" class="col-sm-3">
                       <button type="button" class="btn btn-primary">Send message</button>
                     </div>
                   </div>

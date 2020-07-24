@@ -23,11 +23,39 @@
                   </div>
                   <div class="form-group">
                     <label>Rank:</label> 
-                    <input type="text" class="form-control" v-model="rank">
+                    <select class="form-control" v-model="rank">
+                      <option>Unranked</option>
+                      <option>Iron I</option>
+                      <option>Iron II</option>
+                      <option>Iron III</option>
+                      <option>Bronze I</option>
+                      <option>Bronze II</option>
+                      <option>Bronze III</option>
+                      <option>Silver I</option>
+                      <option>Silver II</option>
+                      <option>Silver III</option>
+                      <option>Gold I</option>
+                      <option>Gold II</option>
+                      <option>Gold III</option>
+                      <option>Platinum I</option>
+                      <option>Platinum II</option>
+                      <option>Platinum III</option>
+                      <option>Diamond I</option>
+                      <option>Diamond II</option>
+                      <option>Diamond III</option>
+                      <option>Immortal I</option>
+                      <option>Immortal II</option>
+                      <option>Immortal III</option>
+                      <option>Radiant</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Playstyle:</label> 
-                    <input type="text" class="form-control" v-model="playstyle">
+                    <select class="form-control" v-model="playstyle">
+                      <option>beginner</option>
+                      <option>casual</option>
+                      <option>competitive</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Password:</label>
