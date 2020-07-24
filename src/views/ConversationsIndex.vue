@@ -85,7 +85,8 @@ export default {
       formData.append("text", this.text);
       formData.append("conversation_id", this.currentConversation.id);
       axios.post("/api/messages", formData).then((response) => {
-        window.location.reload();
+        this.showConversation(this.currentConversation);
+        this.text = "";
       });
     },
   },

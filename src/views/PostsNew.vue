@@ -19,7 +19,12 @@
                   </div>
                   <div class="form-group">
                     <label>Players Needed:</label>
-                    <input type="text" class="form-control" v-model="playersNeeded" />
+                    <select class="form-control" v-model="playersNeeded">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Content:</label>
