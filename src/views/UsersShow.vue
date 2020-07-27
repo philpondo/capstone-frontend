@@ -189,10 +189,10 @@ export default {
     },
     editUser: function () {
       var params = {
-        name: this.name,
-        email: this.email,
-        rank: this.rank,
-        playstyle: this.playstyle,
+        name: this.user.name,
+        email: this.user.email,
+        rank: this.user.rank,
+        playstyle: this.user.playstyle,
       };
       axios
         .patch(`/api/users/${this.user.id}`, params)
