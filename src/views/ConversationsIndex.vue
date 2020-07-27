@@ -7,6 +7,7 @@
       <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
         Open
       </button>
+      <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">Delete</button>
     </div>
 
     <!-- Modal -->
@@ -76,6 +77,16 @@ export default {
         this.messages = this.currentConversation.messages;
         this.partner = this.currentConversation.partner;
       });
+    },
+    deleteConversation: function (conversation) {
+      if (confirm("Are you sure you want to delete this conversation?")) {
+        axios
+          .delete(`/api/conversations/${conversation.id}`)
+          .then((response) => {
+            console.log("Successfully destroyed", response.data);
+            window.location.reload();
+          });
+      }
     },
     relativeDate: function (date) {
       return moment(date).fromNow();
