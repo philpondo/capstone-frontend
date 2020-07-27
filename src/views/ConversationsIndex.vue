@@ -3,7 +3,7 @@
     <div v-if="conversations.length == 0">
       <h5>No Conversations</h5>
     </div>
-    <div v-for="conversation in orderBy(conversations, 'last_message.created_at', -1)">
+    <div v-for="conversation in conversations">
       <h5>Conversation with {{conversation.partner.name}}</h5>
       <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
       <!-- Button trigger modal -->
@@ -89,7 +89,11 @@ export default {
           .delete(`/api/conversations/${conversation.id}`)
           .then((response) => {
             console.log("Successfully destroyed", response.data);
-            window.location.reload();
+            // splice out of conversations array
+            this.conversations.splice(
+              this.conversations.indexOf(conversation),
+              1
+            );
           });
       }
     },

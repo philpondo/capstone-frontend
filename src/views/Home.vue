@@ -52,6 +52,7 @@ export default {
     return {
       message: "GoPlay",
       posts: [],
+      rankFilter: "",
     };
   },
   created: function () {

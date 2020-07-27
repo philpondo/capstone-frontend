@@ -30,6 +30,14 @@
                 <input type="email" class="form-control" v-model="user.email">
               </div>
               <div class="form-group">
+                <label>New Password:</label>
+                <input type="email" class="form-control" v-model="password">
+              </div>
+              <div class="form-group">
+                <label>Password Confirmation:</label>
+                <input type="email" class="form-control" v-model="passwordConfirmation">
+              </div>
+              <div class="form-group">
                 <label>Rank:</label> 
                 <select class="form-control" v-model="user.rank">
                   <option>Unranked</option>
@@ -139,6 +147,8 @@ export default {
       email: "",
       rank: "",
       playstyle: "",
+      password: "",
+      passwordConfirmation: "",
     };
   },
   created: function () {
@@ -159,7 +169,8 @@ export default {
       if (confirm("Are you sure you want to delete this post?")) {
         axios.delete(`/api/posts/${post.id}`).then((response) => {
           console.log("Successfully destroyed", response.data);
-          window.location.reload();
+          // splice post out of posts array
+          this.posts.splice(this.posts.indexOf(post), 1);
         });
       }
     },
@@ -177,13 +188,12 @@ export default {
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
-      window.location.reload();
     },
     destroyUser: function () {
       if (confirm("Are you sure you want to delete your account?")) {
         axios.delete(`/api/users/${this.user.id}`).then((response) => {
           console.log("Successfully destroyed", response.data);
-          window.location.reload();
+          this.$router.push("/");
         });
       }
     },
@@ -194,6 +204,10 @@ export default {
         rank: this.user.rank,
         playstyle: this.user.playstyle,
       };
+      if (this.password && this.passwordConfirmation) {
+        params.password = this.password;
+        params.password_confirmation = this.passwordConfirmation;
+      }
       axios
         .patch(`/api/users/${this.user.id}`, params)
         .then((response) => {
@@ -202,7 +216,6 @@ export default {
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
-      window.location.reload();
     },
   },
 };
