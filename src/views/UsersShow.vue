@@ -9,8 +9,46 @@
       <p>Players Needed: {{post.players_needed}}</p>
       <p>{{post.content}}</p>
       <div v-if="post.user_id == $parent.getUserId()">
-        <button type="button" class="btn btn-primary">Edit</button>
+        <button v-on:click="showPost(post)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPostModal">Edit</button>
         <button v-on:click="destroyPost(post)" type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </div>
+    <!-- Edit Post Modal -->
+    <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form v-on:submit.prevent="editPost(currentPost)">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+              <div class="form-group">
+                <label class="col-form-label">Title:</label>
+                <input type="text" class="form-control" v-model="currentPost.title" />
+              </div>
+              <div class="form-group">
+                <label>Players Needed: {{currentPost.players_needed}}</label>
+                <select class="form-control" v-model="currentPost.playersNeeded">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Content:</label>
+                <textarea class="form-control" v-model="currentPost.content"></textarea> 
+              </div>
+              <input type="submit" class="btn btn-primary" value="Update">
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,6 +62,7 @@ export default {
       user: {},
       posts: [],
       errors: [],
+      currentPost: {},
     };
   },
   created: function () {
@@ -34,6 +73,12 @@ export default {
     });
   },
   methods: {
+    showPost: function (post) {
+      axios.get(`/api/posts/${post.id}`).then((response) => {
+        console.log("Post:", response.data);
+        this.currentPost = response.data;
+      });
+    },
     destroyPost: function (post) {
       if (confirm("Are you sure you want to delete this post?")) {
         axios.delete(`/api/posts/${post.id}`).then((response) => {
@@ -41,6 +86,22 @@ export default {
           window.location.reload();
         });
       }
+    },
+    editPost: function (post) {
+      var params = {
+        title: post.title,
+        players_needed: post.players_needed,
+        content: post.content,
+      };
+      axios
+        .patch(`/api/posts/${post.id}`, params)
+        .then((response) => {
+          $("#editPostModal").modal("hide");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+      window.location.reload();
     },
   },
 };
