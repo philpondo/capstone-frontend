@@ -1,5 +1,8 @@
 <template>
   <div class="conversations-index">
+    <div v-if="conversations.length == 0">
+      <h5>No Conversations</h5>
+    </div>
     <div v-for="conversation in conversations">
       <h5>Conversation with {{conversation.partner.name}}</h5>
       <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>

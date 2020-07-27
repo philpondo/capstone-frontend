@@ -2,8 +2,80 @@
   <div class="users-show">
     <h2>{{user.name}}</h2>
     <p>Rank: {{user.rank}}</p>
-    <p>playstyle: {{user.playstyle}}</p>
+    <p>Playstyle: {{user.playstyle}}</p>
+    <div v-if="user.id == $parent.getUserId()">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal">Edit</button>
+    </div>
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form v-on:submit.prevent="editUser()">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+              <div class="form-group">
+                <label>Name:</label> 
+                <input type="text" class="form-control" v-model="user.name">
+              </div>
+              <div class="form-group">
+                <label>Email:</label>
+                <input type="email" class="form-control" v-model="user.email">
+              </div>
+              <div class="form-group">
+                <label>Rank:</label> 
+                <select class="form-control" v-model="user.rank">
+                  <option>Unranked</option>
+                  <option>Iron I</option>
+                  <option>Iron II</option>
+                  <option>Iron III</option>
+                  <option>Bronze I</option>
+                  <option>Bronze II</option>
+                  <option>Bronze III</option>
+                  <option>Silver I</option>
+                  <option>Silver II</option>
+                  <option>Silver III</option>
+                  <option>Gold I</option>
+                  <option>Gold II</option>
+                  <option>Gold III</option>
+                  <option>Platinum I</option>
+                  <option>Platinum II</option>
+                  <option>Platinum III</option>
+                  <option>Diamond I</option>
+                  <option>Diamond II</option>
+                  <option>Diamond III</option>
+                  <option>Immortal I</option>
+                  <option>Immortal II</option>
+                  <option>Immortal III</option>
+                  <option>Radiant</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Playstyle:</label> 
+                <select class="form-control" v-model="user.playstyle">
+                  <option>beginner</option>
+                  <option>casual</option>
+                  <option>competitive</option>
+                </select>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Update">
+              <button v-on:click="destroyUser()" type="button" class="btn btn-primary">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <h3>{{user.name}}'s Posts:</h3>
+    <div v-if="posts.length == 0">
+      <h5>No Posts</h5>
+    </div>
     <div v-for="post in posts">
       <h4>{{post.title}}</h4>
       <p>Players Needed: {{post.players_needed}}</p>
@@ -63,6 +135,10 @@ export default {
       posts: [],
       errors: [],
       currentPost: {},
+      name: "",
+      email: "",
+      rank: "",
+      playstyle: "",
     };
   },
   created: function () {
@@ -97,6 +173,31 @@ export default {
         .patch(`/api/posts/${post.id}`, params)
         .then((response) => {
           $("#editPostModal").modal("hide");
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+      window.location.reload();
+    },
+    destroyUser: function () {
+      if (confirm("Are you sure you want to delete your account?")) {
+        axios.delete(`/api/users/${this.user.id}`).then((response) => {
+          console.log("Successfully destroyed", response.data);
+          window.location.reload();
+        });
+      }
+    },
+    editUser: function () {
+      var params = {
+        name: this.name,
+        email: this.email,
+        rank: this.rank,
+        playstyle: this.playstyle,
+      };
+      axios
+        .patch(`/api/users/${this.user.id}`, params)
+        .then((response) => {
+          $("#editUserModal").modal("hide");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
