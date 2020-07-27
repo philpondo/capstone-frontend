@@ -3,7 +3,7 @@
     <div v-if="conversations.length == 0">
       <h5>No Conversations</h5>
     </div>
-    <div v-for="conversation in conversations">
+    <div v-for="conversation in orderBy(conversations, 'last_message.created_at', -1)">
       <h5>Conversation with {{conversation.partner.name}}</h5>
       <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
       <!-- Button trigger modal -->
@@ -55,7 +55,9 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+import Vue2Filters from "vue2-filters";
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function () {
     return {
       conversations: [],

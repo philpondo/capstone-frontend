@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <h1>{{ message }}</h1>
-      <div v-for="post in posts">
+      <div v-for="post in orderBy(posts, 'created_at', -1)">
         <div class="row">
           <div class="col">
             <div class="card text-center text-white bg-dark mb-3">
@@ -45,7 +45,9 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+import Vue2Filters from "vue2-filters";
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function () {
     return {
       message: "GoPlay",
