@@ -2,7 +2,7 @@
   <div class="conversations-index">
     <div v-for="conversation in conversations">
       <h5>Conversation with {{conversation.partner.name}}</h5>
-      <p>Last Message: {{conversation.last_message.text}}</p>
+      <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
       <!-- Button trigger modal -->
       <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
         Open

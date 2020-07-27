@@ -23,7 +23,7 @@
                       <p>Players Needed: {{post.players_needed}}</p>
                     </div>
                     <div v-if="$parent.isLoggedIn()" class="col-sm-3">
-                      <button type="button" class="btn btn-primary">Send message</button>
+                      <button v-on:click="createConversation(post)" type="button" class="btn btn-primary">Send message</button>
                     </div>
                   </div>
                 </div>
@@ -61,6 +61,16 @@ export default {
   methods: {
     relativeDate: function (date) {
       return moment(date).fromNow();
+    },
+    createConversation: function (post) {
+      var params = {
+        recipient_id: post.user_id,
+        post_id: post.id,
+      };
+      axios.post("/api/conversations", params).then((response) => {
+        console.log("New conversation created.");
+        this.$router.push("/conversations");
+      });
     },
   },
 };
