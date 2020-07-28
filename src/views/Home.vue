@@ -1,7 +1,20 @@
 <template>
+
   <div class="home">
     <div class="container">
+
       <h1>{{ message }}</h1>
+
+      <div class="form-group">
+        <input class="form-control" v-model="attributeFilter" list ="attributes" type="text" placeholder="Search">
+      </div>
+      <datalist id="attributes">
+        <option v-for="post in posts">{{post.user_rank}}</option>
+        <option v-for="post in posts">{{post.user_name}}</option>
+        <option v-for="post in posts">{{post.user_playstyle}}</option>
+        <option v-for="post in posts">{{post.players_needed}}</option>
+      </datalist>
+
       <div v-if="showForm == true">
         <h5>New Message to {{conversation.partner.name}}</h5>
         <div class="form-group">
@@ -11,7 +24,8 @@
           <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
         </div>
       </div>
-      <div v-for="post in orderBy(posts, 'created_at', -1)">
+
+      <div v-for="post in orderBy(filterBy(posts, attributeFilter), 'created_at', -1)">
         <div class="row">
           <div class="col">
             <div class="card text-center text-white bg-dark mb-3">
@@ -44,8 +58,10 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
+
 </template>
 
 <style>
@@ -55,6 +71,7 @@
 import axios from "axios";
 import moment from "moment";
 import Vue2Filters from "vue2-filters";
+
 export default {
   mixins: [Vue2Filters.mixin],
   data: function () {
@@ -64,6 +81,7 @@ export default {
       showForm: false,
       conversation: {},
       text: "",
+      attributeFilter: "",
     };
   },
   created: function () {
