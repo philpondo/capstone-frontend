@@ -3,14 +3,16 @@
     <div v-if="conversations.length == 0">
       <h5>No Conversations</h5>
     </div>
-    <div v-for="conversation in conversations">
-      <h5>Conversation with {{conversation.partner.name}}</h5>
-      <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
-      <!-- Button trigger modal -->
-      <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
-        Open
-      </button>
-      <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">Delete</button>
+    <div v-for="conversation in orderBy(conversations, 'last_message_created', -1)">
+      <div v-if="conversation.last_message">
+        <h5>Conversation with {{conversation.partner.name}}</h5>
+        <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
+        <!-- Button trigger modal -->
+        <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
+          Open
+        </button>
+        <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">Delete</button>
+      </div>
     </div>
 
     <!-- Modal -->

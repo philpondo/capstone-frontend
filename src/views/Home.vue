@@ -2,6 +2,15 @@
   <div class="home">
     <div class="container">
       <h1>{{ message }}</h1>
+      <div v-if="showForm == true">
+        <h5>New Message to {{conversation.partner.name}}</h5>
+        <div class="form-group">
+          <textarea class="form-control" v-model="text" placeholder="Message..."></textarea> 
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
+        </div>
+      </div>
       <div v-for="post in orderBy(posts, 'created_at', -1)">
         <div class="row">
           <div class="col">
@@ -52,7 +61,9 @@ export default {
     return {
       message: "GoPlay",
       posts: [],
-      rankFilter: "",
+      showForm: false,
+      conversation: {},
+      text: "",
     };
   },
   created: function () {
@@ -71,7 +82,18 @@ export default {
         post_id: post.id,
       };
       axios.post("/api/conversations", params).then((response) => {
-        console.log("New conversation created.");
+        console.log("New conversation created:", response.data);
+        this.conversation = response.data;
+        this.showForm = true;
+      });
+    },
+    createMessage: function () {
+      var formData = new FormData();
+      formData.append("text", this.text);
+      formData.append("conversation_id", this.conversation.id);
+      axios.post("/api/messages", formData).then((response) => {
+        this.text = "";
+        this.showForm = false;
         this.$router.push("/conversations");
       });
     },
