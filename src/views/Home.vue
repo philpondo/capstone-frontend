@@ -40,7 +40,7 @@
                       <router-link v-bind:to="`/users/${post.user_id}`">
                         <h5>{{post.user_name}}</h5>
                       </router-link>
-                      <p>{{post.user_rank}} // {{post.user_playstyle}}</p>
+                      <p><img v-if="post.user_rank !== 'Unranked'" :src="'../ranks/' + post.user_rank + '.png'" :alt="post.user_rank" width="20" height="20" />{{post.user_rank}} // {{post.user_playstyle}}</p>
                     </div>
                     <div class="col-md-6">
                       <p>{{post.content}}</p>
