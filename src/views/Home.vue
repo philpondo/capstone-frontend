@@ -36,6 +36,7 @@
                 <div class="container">
                   <div class="row align-items-center">
                     <div class="col-sm-3">
+                      <img v-if="post.user_image" class="rounded-circle" :src="post.user_image" :alt="post.user_image" width="80" height="80">
                       <router-link v-bind:to="`/users/${post.user_id}`">
                         <h5>{{post.user_name}}</h5>
                       </router-link>

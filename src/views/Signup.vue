@@ -104,19 +104,25 @@ export default {
       }
     },
     submit: function () {
-      var params = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.passwordConfirmation,
-        rank: this.rank,
-        playstyle: this.playstyle,
-        image: this.image,
-      };
+      var formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("email", this.email);
+      formData.append("password", this.password);
+      formData.append("passwordConfirmation", this.passwordConfirmation);
+      formData.append("rank", this.rank);
+      formData.append("playstyle", this.playstyle);
+      formData.append("image", this.image);
       axios
-        .post("/api/users", params)
+        .post("/api/users", formData)
         .then((response) => {
           this.$router.push("/login");
+          this.name = "";
+          this.email = "";
+          this.password = "";
+          this.passwordConfirmation = "";
+          this.rank = "";
+          this.playstyle = "";
+          this.$refs.fileInput.value = "";
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
