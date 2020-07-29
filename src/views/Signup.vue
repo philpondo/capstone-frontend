@@ -65,6 +65,10 @@
                     <label>Confirm Password:</label>
                     <input type="password" class="form-control" v-model="passwordConfirmation">
                   </div>
+                  <div class="form-group">
+                    <label>Upload a Profile Picture: </label>
+                    <input type="file" v-on:change="setFile($event)" ref="fileInput">
+                  </div>
                 </div>
               </div>
               <div class="card-footer">
@@ -89,10 +93,16 @@ export default {
       passwordConfirmation: "",
       rank: "",
       playstyle: "",
+      image: "",
       errors: [],
     };
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.image = event.target.files[0];
+      }
+    },
     submit: function () {
       var params = {
         name: this.name,
@@ -101,6 +111,7 @@ export default {
         password_confirmation: this.passwordConfirmation,
         rank: this.rank,
         playstyle: this.playstyle,
+        image: this.image,
       };
       axios
         .post("/api/users", params)

@@ -1,7 +1,7 @@
 <template>
   <div class="users-show">
     <h2>{{user.name}}</h2>
-    <p>Rank: {{user.rank}}</p>
+    <p>Rank: {{user.rank}} <img v-if="user.rank !== 'Unranked'" :src="'../ranks/' + user.rank + '.png'" :alt="user.rank" width="20" height="20" /></p>
     <p>Playstyle: {{user.playstyle}}</p>
     <div v-if="user.id == $parent.getUserId()">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal">Edit</button>

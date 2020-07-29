@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home | </router-link> 
-      <router-link v-if="isLoggedIn()" to="/posts/new">New Post | </router-link> 
-      <router-link v-if="isLoggedIn()" v-bind:to="`/users/${getUserId()}`">My Profile | </router-link> 
-      <router-link v-if="isLoggedIn()" to="/conversations">My Conversations | </router-link> 
-      <router-link v-if="isLoggedIn()" to="/logout">Logout </router-link>
-      <router-link v-if="!isLoggedIn()" to="/login">Login | </router-link> 
-      <router-link v-if="!isLoggedIn()" to="/signup">Signup </router-link>
+      <router-link to="/">/ Home /</router-link> 
+      <router-link v-if="isLoggedIn()" to="/posts/new">/ New Post /</router-link> 
+      <router-link v-if="isLoggedIn()" v-bind:to="`/users/${getUserId()}`">/ My Profile /</router-link> 
+      <router-link v-if="isLoggedIn()" to="/conversations">/ My Conversations /</router-link> 
+      <router-link v-if="isLoggedIn()" to="/logout">/ Logout /</router-link>
+      <router-link v-if="!isLoggedIn()" to="/login">/ Login /</router-link> 
+      <router-link v-if="!isLoggedIn()" to="/signup">/ Signup /</router-link>
     </div>
     <router-view/>
   </div>

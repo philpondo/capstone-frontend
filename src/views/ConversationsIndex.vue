@@ -11,7 +11,9 @@
         <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
           Open
         </button>
-        <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">Delete</button>
+        <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">
+          Delete
+        </button>
       </div>
     </div>
 
