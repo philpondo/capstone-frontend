@@ -1,7 +1,7 @@
 <template>
   <div class="users-show">
 
-    <img v-if="user.image" :src="user.image" :alt="user.name" width="200" height="200">
+    <img v-if="user.image" :src="user.image" :alt="user.name" width="250" height="200">
     <h2>{{user.name}}</h2>
     <p>Rank: {{user.rank}} <img v-if="user.rank !== 'Unranked'" :src="'../ranks/' + user.rank + '.png'" :alt="user.rank" width="20" height="20" /></p>
     <p>Playstyle: {{user.playstyle}}</p>
