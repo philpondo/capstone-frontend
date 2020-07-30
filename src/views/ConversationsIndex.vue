@@ -3,57 +3,41 @@
     <div v-if="conversations.length == 0">
       <h5>No Conversations</h5>
     </div>
-    <div v-for="conversation in orderBy(conversations, 'last_message_created', -1)">
+    <div v-for="conversation in orderBy(conversations, 'created_at', -1)">
       <div v-if="conversation.last_message">
         <h5>Conversation with {{conversation.partner.name}}</h5>
         <p v-if="conversation.last_message">Last Message: {{conversation.last_message.text}}</p>
+        <p>{{relativeDate(conversation.last_message.created_at)}}</p>
         <!-- Button trigger modal -->
-        <button v-on:click="showConversation(conversation)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#showConversationModal">
+        <button v-on:click="showConversation(conversation)" type="button">
           Open
         </button>
-        <button v-on:click="deleteConversation(conversation)" type="button" class="btn btn-primary">
+        <button v-on:click="deleteConversation(conversation)" type="button">
           Delete
         </button>
       </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="showConversationModal" tabindex="-1" role="dialog" aria-labelledby="showConversationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="showConversationModalLabel">Conversation with {{partner.name}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div v-for="message in messages">
-              <p>{{message.user_name}}:</p>
-              <p>{{message.text}}</p>
-              <p>{{relativeDate(message.created_at)}}</p>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-md-9">
-                  <div class="form-group">
-                    <textarea class="form-control" v-model="text" placeholder="Message..."></textarea> 
-                  </div>
-                </div>
-                <div class="col-5 col-md-3">
-                  <div class="form-group">
-                    <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div v-if="currentConversation">
+      <h5>Conversation with {{partner.name}}</h5>
+      <div>
+        <div v-for="message in messages">
+          <p>{{message.user_name}}:</p>
+          <p>{{message.text}}</p>
+          <p>{{relativeDate(message.created_at)}}</p>
         </div>
+      </div>
+      <div>
+        <div>
+          <textarea v-model="text" placeholder="Message..."></textarea> 
+        </div>
+      </div>
+      <div>
+        <button type="button" v-on:click="createMessage()">Send</button>
+        <button type="button" v-on:click="currentConversation = ''">Close</button>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>

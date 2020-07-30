@@ -1,86 +1,83 @@
 <template>
   <div class="users-show">
-    <img v-if="user.image" class="rounded-circle" :src="user.image" :alt="user.name" width="200" height="200">
+
+    <img v-if="user.image" :src="user.image" :alt="user.name" width="200" height="200">
     <h2>{{user.name}}</h2>
     <p>Rank: {{user.rank}} <img v-if="user.rank !== 'Unranked'" :src="'../ranks/' + user.rank + '.png'" :alt="user.rank" width="20" height="20" /></p>
     <p>Playstyle: {{user.playstyle}}</p>
     <div v-if="user.id == $parent.getUserId()">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal">Edit</button>
+      <button type="button">Edit</button>
     </div>
-    <!-- Edit User Modal -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form v-on:submit.prevent="editUser()">
-              <ul>
-                <li class="text-danger" v-for="error in errors">{{ error }}</li>
-              </ul>
-              <div class="form-group">
-                <label>Name:</label> 
-                <input type="text" class="form-control" v-model="user.name">
-              </div>
-              <div class="form-group">
-                <label>Email:</label>
-                <input type="email" class="form-control" v-model="user.email">
-              </div>
-              <div class="form-group">
-                <label>New Password:</label>
-                <input type="email" class="form-control" v-model="password">
-              </div>
-              <div class="form-group">
-                <label>Password Confirmation:</label>
-                <input type="email" class="form-control" v-model="passwordConfirmation">
-              </div>
-              <div class="form-group">
-                <label>Rank:</label> 
-                <select class="form-control" v-model="user.rank">
-                  <option>Unranked</option>
-                  <option>Iron I</option>
-                  <option>Iron II</option>
-                  <option>Iron III</option>
-                  <option>Bronze I</option>
-                  <option>Bronze II</option>
-                  <option>Bronze III</option>
-                  <option>Silver I</option>
-                  <option>Silver II</option>
-                  <option>Silver III</option>
-                  <option>Gold I</option>
-                  <option>Gold II</option>
-                  <option>Gold III</option>
-                  <option>Platinum I</option>
-                  <option>Platinum II</option>
-                  <option>Platinum III</option>
-                  <option>Diamond I</option>
-                  <option>Diamond II</option>
-                  <option>Diamond III</option>
-                  <option>Immortal I</option>
-                  <option>Immortal II</option>
-                  <option>Immortal III</option>
-                  <option>Radiant</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Playstyle:</label> 
-                <select class="form-control" v-model="user.playstyle">
-                  <option>beginner</option>
-                  <option>casual</option>
-                  <option>competitive</option>
-                </select>
-              </div>
-              <input type="submit" class="btn btn-primary" value="Update">
-              <button v-on:click="destroyUser()" type="button" class="btn btn-primary">Delete</button>
-            </form>
-          </div>
+
+    <div>
+      <h5>Edit User</h5>
+    </div>
+    <div>
+      <form v-on:submit.prevent="editUser()">
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+        <div>
+          <label>Name:</label> 
+          <input type="text" v-model="user.name">
         </div>
-      </div>
+        <div>
+          <label>Email:</label>
+          <input type="text" v-model="user.email">
+        </div>
+        <div>
+          <label>New Password:</label>
+          <input type="password" v-model="password">
+        </div>
+        <div>
+          <label>Password Confirmation:</label>
+          <input type="password" v-model="passwordConfirmation">
+        </div>
+        <div>
+          <label>Rank:</label> 
+          <select v-model="user.rank">
+            <option>Unranked</option>
+            <option>Iron I</option>
+            <option>Iron II</option>
+            <option>Iron III</option>
+            <option>Bronze I</option>
+            <option>Bronze II</option>
+            <option>Bronze III</option>
+            <option>Silver I</option>
+            <option>Silver II</option>
+            <option>Silver III</option>
+            <option>Gold I</option>
+            <option>Gold II</option>
+            <option>Gold III</option>
+            <option>Platinum I</option>
+            <option>Platinum II</option>
+            <option>Platinum III</option>
+            <option>Diamond I</option>
+            <option>Diamond II</option>
+            <option>Diamond III</option>
+            <option>Immortal I</option>
+            <option>Immortal II</option>
+            <option>Immortal III</option>
+            <option>Radiant</option>
+          </select>
+        </div>
+        <div>
+          <label>Playstyle:</label> 
+          <select v-model="user.playstyle">
+            <option>beginner</option>
+            <option>casual</option>
+            <option>competitive</option>
+          </select>
+        </div>
+        <div>
+          <label>Profile Picture:</label>
+          <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        </div>
+        <input type="submit" value="Update">
+        <button v-on:click="destroyUser()" type="button">Delete</button>
+      </form>
     </div>
+
     <h3>{{user.name}}'s Posts:</h3>
     <div v-if="posts.length == 0">
       <h5>No Posts</h5>
@@ -90,47 +87,38 @@
       <p>Players Needed: {{post.players_needed}}</p>
       <p>{{post.content}}</p>
       <div v-if="post.user_id == $parent.getUserId()">
-        <button v-on:click="showPost(post)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPostModal">Edit</button>
-        <button v-on:click="destroyPost(post)" type="button" class="btn btn-primary">Delete</button>
+        <button v-on:click="showPost(post)" type="button">Edit</button>
+        <button v-on:click="destroyPost(post)" type="button">Delete</button>
       </div>
     </div>
-    <!-- Edit Post Modal -->
-    <div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="editPostModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editPostModalLabel">Edit Post</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form v-on:submit.prevent="editPost(currentPost)">
-              <ul>
-                <li class="text-danger" v-for="error in errors">{{ error }}</li>
-              </ul>
-              <div class="form-group">
-                <label class="col-form-label">Title:</label>
-                <input type="text" class="form-control" v-model="currentPost.title" />
-              </div>
-              <div class="form-group">
-                <label>Players Needed: {{currentPost.players_needed}}</label>
-                <select class="form-control" v-model="currentPost.playersNeeded">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Content:</label>
-                <textarea class="form-control" v-model="currentPost.content"></textarea> 
-              </div>
-              <input type="submit" class="btn btn-primary" value="Update">
-            </form>
-          </div>
+
+    <div>
+      <h5>Edit Post</h5>
+    </div>
+    <div>
+      <form v-on:submit.prevent="editPost(currentPost)">
+        <ul>
+          <li v-for="error in errors">{{ error }}</li>
+        </ul>
+        <div>
+          <label>Title:</label>
+          <input type="text" v-model="currentPost.title" />
         </div>
-      </div>
+        <div>
+          <label>Players Needed: {{currentPost.players_needed}}</label>
+          <select v-model="currentPost.playersNeeded">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div>
+          <label>Content:</label>
+          <textarea v-model="currentPost.content"></textarea> 
+        </div>
+        <input type="submit" value="Update">
+      </form>
     </div>
   </div>
 </template>
@@ -148,6 +136,7 @@ export default {
       email: "",
       rank: "",
       playstyle: "",
+      image: "",
       password: "",
       passwordConfirmation: "",
     };
@@ -160,6 +149,11 @@ export default {
     });
   },
   methods: {
+    setFile: function (event) {
+      if (event.target.files.length > 0) {
+        this.user.image = event.target.files[0];
+      }
+    },
     showPost: function (post) {
       axios.get(`/api/posts/${post.id}`).then((response) => {
         console.log("Post:", response.data);
@@ -184,7 +178,7 @@ export default {
       axios
         .patch(`/api/posts/${post.id}`, params)
         .then((response) => {
-          $("#editPostModal").modal("hide");
+          console.log(response.data);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
@@ -199,20 +193,22 @@ export default {
       }
     },
     editUser: function () {
-      var params = {
-        name: this.user.name,
-        email: this.user.email,
-        rank: this.user.rank,
-        playstyle: this.user.playstyle,
-      };
+      var formData = new FormData();
+      formData.append("name", this.user.name);
+      formData.append("email", this.user.email);
+      formData.append("rank", this.user.rank);
+      formData.append("playstyle", this.user.playstyle);
+      if (this.user.image) {
+        formData.append("image", this.user.image);
+      }
       if (this.password && this.passwordConfirmation) {
-        params.password = this.password;
-        params.password_confirmation = this.passwordConfirmation;
+        formData.append("password", this.user.password);
+        formData.append("passwordConfirmation", this.user.passwordConfirmation);
       }
       axios
-        .patch(`/api/users/${this.user.id}`, params)
+        .patch(`/api/users/${this.user.id}`, formData)
         .then((response) => {
-          $("#editUserModal").modal("hide");
+          console.log(response.data);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;

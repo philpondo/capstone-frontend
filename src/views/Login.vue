@@ -1,35 +1,27 @@
 <template>
   <div class="login">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="card text-center text-white bg-dark mb-3">
-            <form v-on:submit.prevent="submit()">
-              <div class="card-header">
-                <h4>Login</h4>
-              </div>
-              <div class="card-body">
-                <div class="container">
-                  <ul>
-                    <li class="text-danger" v-for="error in errors">{{ error }}</li>
-                  </ul>
-                  <div class="form-group">
-                    <label>Email:</label>
-                    <input type="email" class="form-control" v-model="email">
-                  </div>
-                  <div class="form-group">
-                    <label>Password:</label>
-                    <input type="password" class="form-control" v-model="password">
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <input type="submit" class="btn btn-primary" value="Login">
-              </div>
-            </form>
+    <div>
+      <form v-on:submit.prevent="submit()">
+        <div>
+          <h4>Login</h4>
+        </div>
+        <div>
+          <ul>
+            <li v-for="error in errors">{{ error }}</li>
+          </ul>
+          <div>
+            <label>Email:</label>
+            <input type="email" v-model="email">
+          </div>
+          <div>
+            <label>Password:</label>
+            <input type="password" v-model="password">
           </div>
         </div>
-      </div>
+        <div>
+          <input type="submit" value="Login">
+        </div>
+      </form>
     </div>
   </div>
 </template>

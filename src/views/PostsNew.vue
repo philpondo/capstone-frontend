@@ -1,44 +1,36 @@
 <template>
   <div class="posts-new">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="card text-center text-white bg-dark mb-3">
-            <form v-on:submit.prevent="createPost()">
-              <div class="card-header">
-                <h4>New Post</h4>
-              </div>
-              <div class="card-body">
-                <div class="container">
-                  <ul>
-                    <li class="text-danger" v-for="error in errors">{{ error }}</li>
-                  </ul>
-                  <div class="form-group">
-                    <label class="col-form-label">Title:</label>
-                    <input type="text" class="form-control" v-model="title" />
-                  </div>
-                  <div class="form-group">
-                    <label>Players Needed:</label>
-                    <select class="form-control" v-model="playersNeeded">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Content:</label>
-                    <textarea class="form-control" v-model="content"></textarea> 
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <input type="submit" class="btn btn-primary" value="Create" />
-              </div>
-            </form>
+    <div>
+      <form v-on:submit.prevent="createPost()">
+        <div>
+          <h4>New Post</h4>
+        </div>
+        <div>
+          <ul>
+            <li v-for="error in errors">{{ error }}</li>
+          </ul>
+          <div>
+            <label>Title:</label>
+            <input type="text" v-model="title" />
+          </div>
+          <div>
+            <label>Players Needed:</label>
+            <select v-model="playersNeeded">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+          <div>
+            <label>Content:</label>
+            <textarea v-model="content"></textarea> 
           </div>
         </div>
-      </div>
+        <div class="card-footer">
+          <input type="submit" value="Create" />
+        </div>
+      </form>
     </div>
   </div>
 </template>
