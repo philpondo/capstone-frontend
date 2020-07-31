@@ -30,7 +30,8 @@
           <h5>{{post.title}}</h5>
         </div>
         <div>
-          <img v-if="post.user_image" class="rounded-circle" :src="post.user_image" :alt="post.user_image" width="80" height="80">
+          <img v-if="post.user_image" class="rounded-circle" :src="post.user_image" :alt="post.user_name" width="80" height="80">
+          <img v-if="!post.user_image" :src="'../default-user.png'" :alt="post.user_name" width="80" height="80">
           <router-link v-bind:to="`/users/${post.user_id}`">
             <h5>{{post.user_name}}</h5>
           </router-link>
