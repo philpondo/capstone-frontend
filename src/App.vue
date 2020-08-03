@@ -98,18 +98,13 @@
             <!-- Navbar links -->
             <ul class="navbar-nav">
               <li class="nav-item dropdown megamenu">
-                <a class="nav-link" href="../../index.html">
-                  Overview
-                </a>
+                <router-link to="/" class="nav-link">
+                  GoPlay
+                </router-link>
               </li>
             </ul>
 
             <ul class="navbar-nav ml-lg-auto">
-              <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                  Home
-                </router-link>
-              </li>
               <li class="nav-item">
                 <router-link
                   v-if="isLoggedIn()"
@@ -117,6 +112,15 @@
                   class="nav-link"
                 >
                   My Profile
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link
+                  v-if="isLoggedIn()"
+                  to="/conversations"
+                  class="nav-link"
+                >
+                  My Conversations
                 </router-link>
               </li>
               <li class="nav-item">

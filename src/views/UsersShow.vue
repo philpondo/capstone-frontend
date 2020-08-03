@@ -7,9 +7,9 @@
     <p>Playstyle: {{user.playstyle}}</p>
     <div v-if="user.id == $parent.getUserId()">
       <button type="button">Edit</button>
-    </div>
+    </div>-->
 
-    <div>
+    <!-- <div>
       <h5>Edit User</h5>
     </div>
     <div>
@@ -18,23 +18,23 @@
           <li v-for="error in errors">{{ error }}</li>
         </ul>
         <div>
-          <label>Name:</label> 
-          <input type="text" v-model="user.name">
+          <label>Name:</label>
+          <input type="text" v-model="user.name" />
         </div>
         <div>
           <label>Email:</label>
-          <input type="text" v-model="user.email">
+          <input type="text" v-model="user.email" />
         </div>
         <div>
           <label>New Password:</label>
-          <input type="password" v-model="password">
+          <input type="password" v-model="password" />
         </div>
         <div>
           <label>Password Confirmation:</label>
-          <input type="password" v-model="passwordConfirmation">
+          <input type="password" v-model="passwordConfirmation" />
         </div>
         <div>
-          <label>Rank:</label> 
+          <label>Rank:</label>
           <select v-model="user.rank">
             <option>Unranked</option>
             <option>Iron I</option>
@@ -62,7 +62,7 @@
           </select>
         </div>
         <div>
-          <label>Playstyle:</label> 
+          <label>Playstyle:</label>
           <select v-model="user.playstyle">
             <option>beginner</option>
             <option>casual</option>
@@ -71,14 +71,14 @@
         </div>
         <div>
           <label>Profile Picture:</label>
-          <input type="file" v-on:change="setFile($event)" ref="fileInput">
+          <input type="file" v-on:change="setFile($event)" ref="fileInput" />
         </div>
-        <input type="submit" value="Update">
+        <input type="submit" value="Update" />
         <button v-on:click="destroyUser()" type="button">Delete</button>
       </form>
-    </div>
+    </div> -->
 
-    <h3>{{user.name}}'s Posts:</h3>
+    <!--<h3>{{user.name}}'s Posts:</h3>
     <div v-if="posts.length == 0">
       <h5>No Posts</h5>
     </div>
@@ -173,14 +173,10 @@
                   <!-- Profile connect -->
                   <div class="profile-connect mt-4">
                     <a
+                      v-if="user.id == $parent.getUserId()"
                       href="#"
                       class="btn btn-styled btn-block btn-rounded btn-base-1"
-                      >Follow</a
-                    >
-                    <a
-                      href="#"
-                      class="btn btn-styled btn-block btn-rounded btn-base-2"
-                      >Send message</a
+                      >Edit Profile</a
                     >
                   </div>
 
@@ -229,6 +225,9 @@
 
             <div class="col-lg-8">
               <div class="card-wrapper">
+                <div v-if="posts.length == 0">
+                  <h5>No Posts</h5>
+                </div>
                 <div v-for="post in posts" class="card z-depth-2-top">
                   <div class="row ">
                     <div class="col-md-12">

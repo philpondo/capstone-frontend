@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <div>
+    <!-- <div>
       <form v-on:submit.prevent="submit()">
         <div>
           <h4>Signup</h4>
@@ -70,6 +70,169 @@
           <input type="submit" value="Signup">
         </div>
       </form>
+    </div> -->
+
+    <div class="body-wrap">
+      <section class="slice sct-color-2">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="card form-card form-card--style-2">
+                <div class="form-header text-center">
+                  <div class="form-header-icon">
+                    <i class="icon icon-3x ion-ios-personadd-outline"></i>
+                  </div>
+                </div>
+                <div class="form-body">
+                  <div class="text-center px-2">
+                    <h4 class="heading heading-4 strong-400 mb-0">
+                      Create a new account
+                    </h4>
+                  </div>
+
+                  <form
+                    class="form-default mt-4"
+                    data-toggle="validator"
+                    role="form"
+                    v-on:submit.prevent="submit()"
+                  >
+                    <ul>
+                      <li class="text-danger" v-for="error in errors">
+                        {{ error }}
+                      </li>
+                    </ul>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label">Username</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-lg"
+                            v-model="name"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label">Email</label>
+                          <input
+                            type="email"
+                            class="form-control form-control-lg"
+                            v-model="email"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="rankFormControlSelect">Rank</label>
+                          <select
+                            class="form-control"
+                            id="rankFormControlSelect"
+                            v-model="rank"
+                          >
+                            <option>Unranked</option>
+                            <option>Iron I</option>
+                            <option>Iron II</option>
+                            <option>Iron III</option>
+                            <option>Bronze I</option>
+                            <option>Bronze II</option>
+                            <option>Bronze III</option>
+                            <option>Silver I</option>
+                            <option>Silver II</option>
+                            <option>Silver III</option>
+                            <option>Gold I</option>
+                            <option>Gold II</option>
+                            <option>Gold III</option>
+                            <option>Platinum I</option>
+                            <option>Platinum II</option>
+                            <option>Platinum III</option>
+                            <option>Diamond I</option>
+                            <option>Diamond II</option>
+                            <option>Diamond III</option>
+                            <option>Immortal I</option>
+                            <option>Immortal II</option>
+                            <option>Immortal III</option>
+                            <option>Radiant</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="playstyleFormControlSelect"
+                            >Playstyle</label
+                          >
+                          <select
+                            class="form-control"
+                            id="playstyleFormControlSelect"
+                            v-model="playstyle"
+                          >
+                            <option>beginner</option>
+                            <option>casual</option>
+                            <option>competitive</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label">Password</label>
+                          <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            v-model="password"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                          <label class="control-label">Confirm Password</label>
+                          <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            v-model="passwordConfirmation"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input
+                          type="file"
+                          name="file-1[]"
+                          id="file-1"
+                          class="custom-input-file"
+                          data-multiple-caption="{count} files selected"
+                          multiple
+                          v-on:change="setFile($event)"
+                          ref="fileInput"
+                        />
+                        <label for="file-1">
+                          <i class="fa fa-upload"></i>
+                          <span>Upload a Profile Picture</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="btn btn-styled  btn-base-1 mt-4"
+                    >
+                      Sign up
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -77,7 +240,7 @@
 <script>
 import axios from "axios";
 export default {
-  data: function () {
+  data: function() {
     return {
       name: "",
       email: "",
@@ -90,12 +253,12 @@ export default {
     };
   },
   methods: {
-    setFile: function (event) {
+    setFile: function(event) {
       if (event.target.files.length > 0) {
         this.image = event.target.files[0];
       }
     },
-    submit: function () {
+    submit: function() {
       var formData = new FormData();
       formData.append("name", this.name);
       formData.append("email", this.email);
