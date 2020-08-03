@@ -124,8 +124,10 @@
       <div class="profile">
         <div class="container">
           <div class="row cols-xs-space cols-sm-space cols-md-space">
-            <div class="col-lg-4">
-              <div class="sidebar sidebar--style-2 no-border stickyfill">
+            <div class="col-lg-3">
+              <div
+                class="sidebar sidebar--style-2 bg-dark no-border stickyfill"
+              >
                 <div class="widget">
                   <!-- Profile picture -->
                   <div class="profile-picture profile-picture--style-2">
@@ -141,18 +143,17 @@
                       :alt="user.name"
                       class="img-center"
                     />
-                    <a href="#" class="btn-aux">
-                      <i class="ion ion-edit"></i>
-                    </a>
                   </div>
 
                   <!-- Profile details -->
                   <div class="profile-details">
-                    <h2 class="heading heading-4 strong-500 profile-name">
+                    <h2
+                      class="heading heading-4 strong-500 profile-name text-white"
+                    >
                       {{ user.name }}
                     </h2>
                     <h3
-                      class="heading heading-6 strong-400 profile-occupation mt-3"
+                      class="heading heading-6 strong-400 profile-occupation mt-3 text-white"
                     >
                       {{ user.rank }}
                       <img
@@ -164,7 +165,7 @@
                       />
                     </h3>
                     <h3
-                      class="heading heading-light heading-6 strong-400 profile-location"
+                      class="heading heading-light heading-6 strong-400 profile-location text-white"
                     >
                       {{ user.playstyle }}
                     </h3>
@@ -175,49 +176,9 @@
                     <a
                       v-if="user.id == $parent.getUserId()"
                       href="#"
-                      class="btn btn-styled btn-block btn-rounded btn-base-1"
+                      class="btn btn-styled btn-block btn-rounded btn-red"
                       >Edit Profile</a
                     >
-                  </div>
-
-                  <!-- Profile stats -->
-                  <div class="profile-stats clearfix">
-                    <div class="stats-entry">
-                      <span class="stats-count">180</span>
-                      <span class="stats-label text-uppercase">Projects</span>
-                    </div>
-                    <div class="stats-entry">
-                      <span class="stats-count">1.3K</span>
-                      <span class="stats-label text-uppercase">Followers</span>
-                    </div>
-                  </div>
-
-                  <!-- Profile connected accounts -->
-                  <div class="profile-useful-links clearfix">
-                    <div class="useful-links">
-                      <a href="#" class="link link--style-1">
-                        <i class="icon ion-social-instagram-outline"></i>
-                        instagram.com/webpixels_io
-                      </a>
-                      <a href="#" class="link link--style-1">
-                        <i class="icon ion-social-dribbble"></i>
-                        dribbble.com/webpixels
-                      </a>
-
-                      <a href="#" class="link link--style-1">
-                        <i class="icon ion-earth"></i>
-                        webpixels.io
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="profile-useful-links clearfix">
-                    <div class="useful-links">
-                      <a href="#" class="link link--style-1">
-                        <i class="icon ion-code-download"></i>
-                        Export page as PDF
-                      </a>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -228,19 +189,22 @@
                 <div v-if="posts.length == 0">
                   <h5>No Posts</h5>
                 </div>
-                <div v-for="post in posts" class="card z-depth-2-top">
+                <div v-else>
+                  <h5>{{ user.name }}'s Posts</h5>
+                </div>
+                <div v-for="post in posts" class="card bg-dark z-depth-2-top">
                   <div class="row ">
                     <div class="col-md-12">
                       <div class="card-body">
                         <h4
-                          class="heading heading-5 strong-600 line-height-1_8"
+                          class="heading heading-5 strong-600 line-height-1_8 text-white"
                         >
                           {{ post.title }}
                         </h4>
-                        <p class="card-text mt-3">
+                        <p class="card-text mt-3 text-white">
                           Players Needed: {{ post.players_needed }}
                         </p>
-                        <p class="card-text mt-3">
+                        <p class="card-text mt-3 text-white">
                           {{ post.content }}
                         </p>
                         <div class="row align-items-center mt-4">
@@ -252,7 +216,7 @@
                               </div>
                               <div class="author-info">
                                 <div class="author-name">
-                                  <a href="#" class="strong-600">{{
+                                  <a href="" class="strong-600">{{
                                     post.user_name
                                   }}</a>
                                 </div>

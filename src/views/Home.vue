@@ -74,7 +74,7 @@
                   'created_at',
                   -1
                 )"
-                class="card z-depth-2-top"
+                class="card bg-dark z-depth-2-top"
               >
                 <div class="row align-items-center">
                   <div class="col-md-4">
@@ -94,16 +94,16 @@
                         </div>
                         <div class="author-info">
                           <span
-                            class="d-block heading heading-sm strong-500 mb-0"
+                            class="d-block heading heading-sm strong-500 mb-0 text-white"
                           >
                             <router-link
                               v-bind:to="`users/${post.user_id}`"
-                              class="strong-600"
+                              class="strong-600 text-white"
                               >{{ post.user_name }}</router-link
                             >
                           </span>
                           <span
-                            class="d-block heading heading-sm strong-500 mb-0"
+                            class="d-block heading heading-sm strong-500 mb-0 text-white"
                           >
                             {{ post.user_rank }}
                             <img
@@ -114,7 +114,7 @@
                               height="20"
                             />
                           </span>
-                          <span class="d-block text-sm strong-500">
+                          <span class="d-block text-sm strong-500 text-white">
                             {{ post.user_playstyle }}
                           </span>
                         </div>
@@ -123,13 +123,15 @@
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h4 class="heading heading-5 strong-600 line-height-1_8">
+                      <h4
+                        class="heading heading-5 strong-600 line-height-1_8 text-white"
+                      >
                         {{ post.title }}
                       </h4>
-                      <p class="card-text mt-3">
+                      <p class="card-text mt-3 text-white">
                         {{ post.content }}
                       </p>
-                      <div class="row align-items-center mt-4">
+                      <div class="row align-items-center mt-4 ">
                         <div class="col-6">
                           <div class="text-left">
                             <div
