@@ -1,8 +1,6 @@
 <template>
-
   <div class="home">
-
-    <h1>{{ message }}</h1>
+    <!-- <h1>{{ message }}</h1>
 
     <div class="form-group">
       <input v-model="attributeFilter" list ="attributes" type="text" placeholder="Search">
@@ -48,13 +46,167 @@
           <p>Posted {{relativeDate(post.created_at)}}</p>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
 
+    <section class="slice sct-color-1">
+      <div class="container">
+        <div class="row cols-md-space cols-sm-space cols-xs-space">
+          <div class="col-lg-8">
+            <div class="card-wrapper">
+              <div class="form-group">
+                <input
+                  v-model="attributeFilter"
+                  list="attributes"
+                  type="text"
+                  class="form-control"
+                  placeholder="Search"
+                />
+              </div>
+              <datalist id="attributes">
+                <option v-for="post in posts">{{ post.user_rank }}</option>
+                <option v-for="post in posts">{{ post.user_name }}</option>
+                <option v-for="post in posts">{{ post.user_playstyle }}</option>
+                <option v-for="post in posts">{{ post.players_needed }}</option>
+              </datalist>
+              <div
+                v-for="post in orderBy(
+                  filterBy(posts, attributeFilter),
+                  'created_at',
+                  -1
+                )"
+                class="card z-depth-2-top"
+              >
+                <div class="row align-items-center">
+                  <div class="col-md-4">
+                    <div class="container">
+                      <div class="block-author">
+                        <div class="author-image author-image-md">
+                          <img
+                            v-if="post.user_image"
+                            :src="post.user_image"
+                            :alt="post.user_name"
+                          />
+                          <img
+                            v-else
+                            src="/default-user.png"
+                            :alt="post.user_name"
+                          />
+                        </div>
+                        <div class="author-info">
+                          <span
+                            class="d-block heading heading-sm strong-500 mb-0"
+                          >
+                            <router-link
+                              v-bind:to="`users/${post.user_id}`"
+                              class="strong-600"
+                              >{{ post.user_name }}</router-link
+                            >
+                          </span>
+                          <span
+                            class="d-block heading heading-sm strong-500 mb-0"
+                          >
+                            {{ post.user_rank }}
+                            <img
+                              v-if="post.user_rank !== 'Unranked'"
+                              :src="'../ranks/' + post.user_rank + '.png'"
+                              :alt="post.user_rank"
+                              width="20"
+                              height="20"
+                            />
+                          </span>
+                          <span class="d-block text-sm strong-500">
+                            {{ post.user_playstyle }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h4 class="heading heading-5 strong-600 line-height-1_8">
+                        {{ post.title }}
+                      </h4>
+                      <p class="card-text mt-3">
+                        {{ post.content }}
+                      </p>
+                      <div class="row align-items-center mt-4">
+                        <div class="col-6">
+                          <div class="text-left">
+                            <div
+                              class="author-name"
+                              v-if="$parent.isLoggedIn()"
+                            >
+                              <button
+                                v-on:click="createConversation(post)"
+                                class="btn btn-styled btn-xs btn-red"
+                              >
+                                Send Message
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-6">
+                          <div class="text-right">
+                            <ul class="inline-links inline-links--style-2">
+                              <li>
+                                Posted {{ relativeDate(post.created_at) }}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 ml-auto">
+            <div class="sidebar">
+              <div v-if="showForm == true" class="sidebar-object">
+                <div class="section-title section-title--style-1 mb-0">
+                  <h3
+                    class="section-title-inner heading-sm strong-600 text-uppercase"
+                  >
+                    New Message to {{ conversation.partner.name }}
+                  </h3>
+                  <div class="form-group">
+                    <textarea
+                      class="form-control"
+                      v-model="text"
+                      placeholder="Message..."
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button
+                      class="btn btn-styled btn-xs btn-red"
+                      v-on:click="createMessage()"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="sidebar-object">
+                <div class="section-title section-title--style-1 mb-0">
+                  <h3
+                    class="section-title-inner heading-sm strong-600 text-uppercase"
+                  >
+                    More from <a href="#" class="link">Destiny Erykah</a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
-<style>
-</style>
+<style></style>
 
 <script>
 import axios from "axios";
@@ -63,7 +215,7 @@ import Vue2Filters from "vue2-filters";
 
 export default {
   mixins: [Vue2Filters.mixin],
-  data: function () {
+  data: function() {
     return {
       message: "GoPlay",
       posts: [],
@@ -73,17 +225,17 @@ export default {
       attributeFilter: "",
     };
   },
-  created: function () {
+  created: function() {
     axios.get("/api/posts").then((response) => {
       console.log("All Posts:", response.data);
       this.posts = response.data;
     });
   },
   methods: {
-    relativeDate: function (date) {
+    relativeDate: function(date) {
       return moment(date).fromNow();
     },
-    createConversation: function (post) {
+    createConversation: function(post) {
       var params = {
         recipient_id: post.user_id,
         post_id: post.id,
@@ -94,7 +246,7 @@ export default {
         this.showForm = true;
       });
     },
-    createMessage: function () {
+    createMessage: function() {
       var formData = new FormData();
       formData.append("text", this.text);
       formData.append("conversation_id", this.conversation.id);

@@ -15,47 +15,11 @@
     </div> -->
     <!-- HEADER -->
     <div class="header">
-      <!-- Top Bar -->
-
-      <!-- Global Search -->
-      <section id="sctGlobalSearch" class="global-search global-search-overlay">
-        <div class="container">
-          <div class="global-search-backdrop mask-dark--style-2"></div>
-
-          <!-- Search form -->
-          <form
-            class="form-horizontal form-global-search z-depth-2-top"
-            role="form"
-          >
-            <div class="px-4">
-              <div class="row">
-                <div class="col-12">
-                  <input
-                    type="text"
-                    class="search-input"
-                    placeholder="Type and hit enter ..."
-                  />
-                </div>
-              </div>
-            </div>
-            <a
-              href="#"
-              class="close-search"
-              data-toggle="global-search"
-              title="Close search bar"
-            ></a>
-          </form>
-        </div>
-      </section>
-
       <!-- Navbar -->
       <nav
-        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-light bg-default "
+        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-inverse bg-base-2"
       >
         <div class="container-fluid navbar-container">
-          <!-- Brand/Logo -->
-          <a class="navbar-brand" href="../../index.html"> </a>
-
           <div class="d-inline-block">
             <!-- Navbar toggler  -->
             <button
@@ -77,28 +41,10 @@
             class="collapse navbar-collapse align-items-center justify-content-around"
             id="navbar_main"
           >
-            <!-- Navbar search - For small resolutions -->
-            <div class="navbar-search-widget b-xs-bottom py-3 d-lg-none d-none">
-              <form class="" role="form">
-                <div class="input-group input-group-lg">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search for..."
-                  />
-                  <span class="input-group-btn">
-                    <button class="btn btn-base-3" type="button">
-                      Go!
-                    </button>
-                  </span>
-                </div>
-              </form>
-            </div>
-
             <!-- Navbar links -->
             <ul class="navbar-nav">
               <li class="nav-item dropdown megamenu">
-                <router-link to="/" class="nav-link">
+                <router-link class="nav-link" to="/">
                   GoPlay
                 </router-link>
               </li>
@@ -139,14 +85,14 @@
             <router-link
               v-if="!isLoggedIn()"
               to="/login"
-              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
+              class="btn btn-styled btn-sm btn-red text-uppercase btn-circle"
             >
               Login
             </router-link>
             <router-link
               v-if="isLoggedIn()"
               to="/logout"
-              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
+              class="btn btn-styled btn-sm btn-red text-uppercase btn-circle"
             >
               Logout
             </router-link>
