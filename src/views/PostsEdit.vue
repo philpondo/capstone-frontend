@@ -1,37 +1,5 @@
 <template>
-  <div class="posts-new">
-    <!-- <div>
-      <form v-on:submit.prevent="createPost()">
-        <div>
-          <h4>New Post</h4>
-        </div>
-        <div>
-          <ul>
-            <li v-for="error in errors">{{ error }}</li>
-          </ul>
-          <div>
-            <label>Title:</label>
-            <input type="text" v-model="title" />
-          </div>
-          <div>
-            <label>Players Needed:</label>
-            <select v-model="playersNeeded">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-          </div>
-          <div>
-            <label>Content:</label>
-            <textarea v-model="content"></textarea> 
-          </div>
-        </div>
-        <div class="card-footer">
-          <input type="submit" value="Create" />
-        </div>
-      </form>
-    </div> -->
+  <div class="posts-edit">
 
     <section
       class="slice-lg has-bg-cover bg-size-cover"
@@ -43,14 +11,14 @@
             <div class="card">
               <div class="card-title">
                 <h5 class="heading heading-5 strong-500">
-                  Create a new post
+                  Edit Post
                 </h5>
               </div>
               <div class="card-body">
                 <form
                   class="form-default"
                   role="form"
-                  v-on:submit.prevent="createPost()"
+                  v-on:submit.prevent="editPost()"
                 >
                   <div class="row">
                     <div class="col-12">
@@ -59,7 +27,7 @@
                         <input
                           type="text"
                           class="form-control form-control-lg"
-                          v-model="title"
+                          v-model="post.title"
                         />
                       </div>
                     </div>
@@ -69,7 +37,7 @@
                     <div class="col-lg-12">
                       <div class="form-group">
                         <label>Players Needed:</label>
-                        <select class="form-control" v-model="playersNeeded">
+                        <select class="form-control" v-model="post.players_needed">
                           <option>1</option>
                           <option>2</option>
                           <option>3</option>
@@ -82,12 +50,12 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label for="contentTextarea">Content </label>
+                        <label for="contentTextarea">Content</label>
                         <textarea
                           class="form-control"
                           id="contentTextarea"
                           rows="3"
-                          v-model="content"
+                          v-model="post.content"
                         ></textarea>
                       </div>
                     </div>
@@ -97,7 +65,7 @@
                     class="btn btn-styled btn-lg btn-block btn-base-1 mt-4"
                     value="Create"
                   >
-                    Submit
+                    Update
                   </button>
                 </form>
               </div>
@@ -112,30 +80,46 @@
 <script>
 import axios from "axios";
 export default {
-  data: function() {
+  data: function () {
     return {
+      post: {},
       title: "",
       playersNeeded: "",
       content: "",
       errors: [],
     };
   },
-  created: function() {},
+  created: function () {
+    axios.get(`/api/posts/${this.$route.params.id}`).then((response) => {
+      console.log("Post:", response.data);
+      this.post = response.data;
+    });
+  },
   methods: {
-    createPost: function() {
+    editPost: function (post) {
       var params = {
-        title: this.title,
-        players_needed: this.playersNeeded,
-        content: this.content,
+        title: this.post.title,
+        players_needed: this.post.players_needed,
+        content: this.post.content,
       };
       axios
-        .post("api/posts", params)
+        .patch(`/api/posts/${this.post.id}`, params)
         .then((response) => {
-          this.$router.push("/");
+          console.log(response.data);
+          this.$router.push(`/users/${this.post.user_id}`);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
+    },
+    destroyPost: function (post) {
+      if (confirm("Are you sure you want to delete this post?")) {
+        axios.delete(`/api/posts/${this.post.id}`).then((response) => {
+          console.log("Successfully destroyed", response.data);
+          // splice post out of posts array
+          this.posts.splice(this.posts.indexOf(post), 1);
+        });
+      }
     },
   },
 };

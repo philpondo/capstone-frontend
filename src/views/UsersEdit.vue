@@ -1,77 +1,5 @@
 <template>
-  <div class="signup">
-    <!-- <div>
-      <form v-on:submit.prevent="submit()">
-        <div>
-          <h4>Signup</h4>
-        </div>
-        <div>
-          <ul>
-            <li class="text-danger" v-for="error in errors">{{ error }}</li>
-          </ul>
-          <div>
-            <label>Name:</label> 
-            <input type="text" v-model="name">
-          </div>
-          <div>
-            <label>Email:</label>
-            <input type="email" v-model="email">
-          </div>
-          <div>
-            <label>Rank:</label> 
-            <select v-model="rank">
-              <option>Unranked</option>
-              <option>Iron I</option>
-              <option>Iron II</option>
-              <option>Iron III</option>
-              <option>Bronze I</option>
-              <option>Bronze II</option>
-              <option>Bronze III</option>
-              <option>Silver I</option>
-              <option>Silver II</option>
-              <option>Silver III</option>
-              <option>Gold I</option>
-              <option>Gold II</option>
-              <option>Gold III</option>
-              <option>Platinum I</option>
-              <option>Platinum II</option>
-              <option>Platinum III</option>
-              <option>Diamond I</option>
-              <option>Diamond II</option>
-              <option>Diamond III</option>
-              <option>Immortal I</option>
-              <option>Immortal II</option>
-              <option>Immortal III</option>
-              <option>Radiant</option>
-            </select>
-          </div>
-          <div>
-            <label>Playstyle:</label> 
-            <select v-model="playstyle">
-              <option>beginner</option>
-              <option>casual</option>
-              <option>competitive</option>
-            </select>
-          </div>
-          <div>
-            <label>Password:</label>
-            <input type="password" v-model="password">
-          </div>
-          <div>
-            <label>Confirm Password:</label>
-            <input type="password" v-model="passwordConfirmation">
-          </div>
-          <div>
-            <label>Upload a Profile Picture: </label>
-            <input type="file" v-on:change="setFile($event)" ref="fileInput">
-          </div>
-        </div>
-        <div>
-          <input type="submit" value="Signup">
-        </div>
-      </form>
-    </div> -->
-
+  <div class="users-edit">
     <div class="body-wrap">
       <section
         class="slice-lg has-bg-cover bg-size-cover"
@@ -80,16 +8,11 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="card form-card form-card--style-2">
-                <div class="form-header text-center">
-                  <div class="form-header-icon">
-                    <i class="icon icon-3x ion-ios-personadd-outline"></i>
-                  </div>
-                </div>
+              <div class="card form-card form-card--style-1">
                 <div class="form-body">
                   <div class="text-center px-2">
                     <h4 class="heading heading-4 strong-400 mb-0">
-                      Create a new account
+                      Edit Profile
                     </h4>
                   </div>
 
@@ -97,7 +20,7 @@
                     class="form-default mt-4"
                     data-toggle="validator"
                     role="form"
-                    v-on:submit.prevent="submit()"
+                    v-on:submit.prevent="editUser()"
                   >
                     <ul>
                       <li class="text-danger" v-for="error in errors">
@@ -111,7 +34,7 @@
                           <input
                             type="text"
                             class="form-control form-control-lg"
-                            v-model="name"
+                            v-model="user.name"
                           />
                         </div>
                       </div>
@@ -122,7 +45,7 @@
                           <input
                             type="email"
                             class="form-control form-control-lg"
-                            v-model="email"
+                            v-model="user.email"
                           />
                         </div>
                       </div>
@@ -135,7 +58,7 @@
                           <select
                             class="form-control"
                             id="rankFormControlSelect"
-                            v-model="rank"
+                            v-model="user.rank"
                           >
                             <option>Unranked</option>
                             <option>Iron I</option>
@@ -171,7 +94,7 @@
                           <select
                             class="form-control"
                             id="playstyleFormControlSelect"
-                            v-model="playstyle"
+                            v-model="user.playstyle"
                           >
                             <option>beginner</option>
                             <option>casual</option>
@@ -205,7 +128,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-9">
+                      <div class="col-md-8">
                         <input
                           type="file"
                           name="file-1[]"
@@ -222,13 +145,24 @@
                         </label>
                       </div>
                     </div>
-
-                    <button
-                      type="submit"
-                      class="btn btn-styled  btn-base-1 mt-4"
-                    >
-                      Sign up
-                    </button>
+                    <div class="row align-items-center">
+                      <div class="col-6 text-left">
+                        <button
+                          type="submit"
+                          class="btn btn-styled btn-base-1 mt-4"
+                        >
+                          Update
+                        </button>
+                      </div>
+                      <div class="col-6 text-right">
+                        <button
+                          v-on:click="destroyUser()"
+                          class="btn btn-styled btn-base-1 mt-4"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -239,12 +173,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
+
 export default {
-  data: function() {
+  data: function () {
     return {
+      user: {},
       name: "",
       email: "",
       password: "",
@@ -255,36 +190,48 @@ export default {
       errors: [],
     };
   },
+  created: function () {
+    axios.get(`/api/users/${this.$route.params.id}`).then((response) => {
+      this.user = response.data;
+      console.log(this.user);
+    });
+  },
   methods: {
-    setFile: function(event) {
+    setFile: function (event) {
       if (event.target.files.length > 0) {
         this.image = event.target.files[0];
       }
     },
-    submit: function() {
+    editUser: function () {
       var formData = new FormData();
-      formData.append("name", this.name);
-      formData.append("email", this.email);
-      formData.append("password", this.password);
-      formData.append("passwordConfirmation", this.passwordConfirmation);
-      formData.append("rank", this.rank);
-      formData.append("playstyle", this.playstyle);
-      formData.append("image", this.image);
+      formData.append("name", this.user.name);
+      formData.append("email", this.user.email);
+      formData.append("rank", this.user.rank);
+      formData.append("playstyle", this.user.playstyle);
+      if (this.user.image) {
+        formData.append("image", this.user.image);
+      }
+      if (this.password && this.passwordConfirmation) {
+        formData.append("password", this.user.password);
+        formData.append("passwordConfirmation", this.user.passwordConfirmation);
+      }
       axios
-        .post("/api/users", formData)
+        .patch(`/api/users/${this.user.id}`, formData)
         .then((response) => {
-          this.$router.push("/login");
-          this.name = "";
-          this.email = "";
-          this.password = "";
-          this.passwordConfirmation = "";
-          this.rank = "";
-          this.playstyle = "";
-          this.$refs.fileInput.value = "";
+          console.log(response.data);
+          this.$router.push(`/users/${this.user.id}`);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
+    },
+    destroyUser: function () {
+      if (confirm("Are you sure you want to delete your account?")) {
+        axios.delete(`/api/users/${this.user.id}`).then((response) => {
+          console.log("Successfully destroyed", response.data);
+          this.$router.push("/");
+        });
+      }
     },
   },
 };

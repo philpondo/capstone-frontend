@@ -17,7 +17,7 @@
     <div class="header">
       <!-- Navbar -->
       <nav
-        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-inverse bg-base-2"
+        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-ligt bg-default"
       >
         <div class="container-fluid navbar-container">
           <div class="d-inline-block">
@@ -54,6 +54,15 @@
               <li class="nav-item">
                 <router-link
                   v-if="isLoggedIn()"
+                  to="/posts/new"
+                  class="nav-link"
+                >
+                  New Post
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link
+                  v-if="isLoggedIn()"
                   v-bind:to="`/users/${getUserId()}`"
                   class="nav-link"
                 >
@@ -69,15 +78,6 @@
                   My Conversations
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link
-                  v-if="isLoggedIn()"
-                  to="/posts/new"
-                  class="nav-link"
-                >
-                  New Post
-                </router-link>
-              </li>
             </ul>
           </div>
 
@@ -85,14 +85,14 @@
             <router-link
               v-if="!isLoggedIn()"
               to="/login"
-              class="btn btn-styled btn-sm btn-red text-uppercase btn-circle"
+              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
             >
               Login
             </router-link>
             <router-link
               v-if="isLoggedIn()"
               to="/logout"
-              class="btn btn-styled btn-sm btn-red text-uppercase btn-circle"
+              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
             >
               Logout
             </router-link>
@@ -101,17 +101,15 @@
       </nav>
     </div>
     <router-view />
-    <footer id="footer" class="footer ">
-      <div class="footer-bottom py-4">
+    <footer id="footer" class="footer">
+      <div class="footer-bottom py-4 bg-dark">
         <div class="container">
           <div class="row cols-xs-space col-sm-space align-items-center">
             <div class="col-lg-3 col-12">
               <div class="text-center text-lg-left">
                 <div class="copyright">
                   <ul class="copy-links no-margin">
-                    <li>
-                      &copy; 2018 Webpixels
-                    </li>
+                    <li class="text-white"></li>
                   </ul>
                 </div>
               </div>

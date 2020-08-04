@@ -74,7 +74,7 @@
                   'created_at',
                   -1
                 )"
-                class="card bg-dark z-depth-2-top"
+                class="card z-depth-2-top"
               >
                 <div class="row align-items-center">
                   <div class="col-md-4">
@@ -94,16 +94,16 @@
                         </div>
                         <div class="author-info">
                           <span
-                            class="d-block heading heading-sm strong-500 mb-0 text-white"
+                            class="d-block heading heading-sm strong-500 mb-0"
                           >
                             <router-link
                               v-bind:to="`users/${post.user_id}`"
-                              class="strong-600 text-white"
+                              class="strong-600"
                               >{{ post.user_name }}</router-link
                             >
                           </span>
                           <span
-                            class="d-block heading heading-sm strong-500 mb-0 text-white"
+                            class="d-block heading heading-sm strong-500 mb-0"
                           >
                             {{ post.user_rank }}
                             <img
@@ -114,7 +114,7 @@
                               height="20"
                             />
                           </span>
-                          <span class="d-block text-sm strong-500 text-white">
+                          <span class="d-block text-sm strong-500">
                             {{ post.user_playstyle }}
                           </span>
                         </div>
@@ -123,33 +123,22 @@
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h4
-                        class="heading heading-5 strong-600 line-height-1_8 text-white"
-                      >
+                      <h4 class="heading heading-5 strong-600 line-height-1_8">
                         {{ post.title }}
                       </h4>
-                      <p class="card-text mt-3 text-white">
+                      <p class="card-text mt-3">
+                        Players needed: {{ post.players_needed }}
+                      </p>
+                      <p class="card-text mt-3">
                         {{ post.content }}
                       </p>
-                      <div class="row align-items-center mt-4 ">
-                        <div class="col-6">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer text-center">
+                  <div class="row align-items-center">
+                        <div class="col align-items-right">
                           <div class="text-left">
-                            <div
-                              class="author-name"
-                              v-if="$parent.isLoggedIn()"
-                            >
-                              <button
-                                v-on:click="createConversation(post)"
-                                class="btn btn-styled btn-xs btn-red"
-                              >
-                                Send Message
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-6">
-                          <div class="text-right">
                             <ul class="inline-links inline-links--style-2">
                               <li>
                                 Posted {{ relativeDate(post.created_at) }}
@@ -157,9 +146,15 @@
                             </ul>
                           </div>
                         </div>
+                        <div v-if="$parent.isLoggedIn() && $parent.getUserId() != post.user_id" class="col-md-3 align-items-left">
+                          <button
+                            v-on:click="createConversation(post)"
+                            class="btn btn-md btn-round btn-base-1"
+                          >
+                            Send Message
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -191,15 +186,6 @@
                   </div>
                 </div>
               </div>
-              <div class="sidebar-object">
-                <div class="section-title section-title--style-1 mb-0">
-                  <h3
-                    class="section-title-inner heading-sm strong-600 text-uppercase"
-                  >
-                    More from <a href="#" class="link">Destiny Erykah</a>
-                  </h3>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -217,7 +203,7 @@ import Vue2Filters from "vue2-filters";
 
 export default {
   mixins: [Vue2Filters.mixin],
-  data: function() {
+  data: function () {
     return {
       message: "GoPlay",
       posts: [],
@@ -227,17 +213,17 @@ export default {
       attributeFilter: "",
     };
   },
-  created: function() {
+  created: function () {
     axios.get("/api/posts").then((response) => {
       console.log("All Posts:", response.data);
       this.posts = response.data;
     });
   },
   methods: {
-    relativeDate: function(date) {
+    relativeDate: function (date) {
       return moment(date).fromNow();
     },
-    createConversation: function(post) {
+    createConversation: function (post) {
       var params = {
         recipient_id: post.user_id,
         post_id: post.id,
@@ -248,7 +234,7 @@ export default {
         this.showForm = true;
       });
     },
-    createMessage: function() {
+    createMessage: function () {
       var formData = new FormData();
       formData.append("text", this.text);
       formData.append("conversation_id", this.conversation.id);
