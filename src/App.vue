@@ -205,14 +205,14 @@
 <style></style>
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {};
   },
   methods: {
-    isLoggedIn: function() {
+    isLoggedIn: function () {
       return localStorage.getItem("jwt");
     },
-    getUserId: function() {
+    getUserId: function () {
       return localStorage.getItem("user_id");
     },
   },

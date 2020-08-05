@@ -82,7 +82,7 @@
                       <td class="product-image text-center" style="width:33%">
                         <div class="container">
                           <div class='col-md-8'>
-                            <img v-if="conversation.partner.image" :src="conversation.partner.image" height="50px" style="text-align:center">
+                            <img v-if="conversation.partner.image" :src="conversation.partner.image" class="img-responsive" height="50px" style="text-align:center">
                             <img v-else src="/default-user.png" height="50px" width="50px">
                             <br>
                             {{conversation.partner.name}}
@@ -103,7 +103,7 @@
 
                       <td class="product-quantity d-none d-md-table-cell">
                         <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
-                          <button v-on:click="showConversation(conversation)" class="btn btn-primary">Open</button>
+                          <button v-on:click="showConversation(conversation)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open</button>
                         </div>
                       </td>
                       <td class="product-remove">
@@ -112,8 +112,47 @@
                         </a>
                       </td>
                     </tr>
+                    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Conversation with {{ partner.name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div v-for="message in messages" class="row">
+                              <div v-if="partner.name == message.user_name" class="col-md-6">
+                                <p class="text-center">{{ message.user_name }}</p>
+                                <p>{{ message.text }}</p>
+                                <p class="text-muted text-center">{{ relativeDate(message.created_at) }}</p>
+                              </div>
+                              <div v-else class="col-md-6 ml-auto text-right">
+                                <p class="text-center">{{ message.user_name }}</p>
+                                <p class="text-right">{{ message.text }}</p>
+                                <p class="text-muted text-center">{{ relativeDate(message.created_at) }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="container">
+                              <div class="row align-items-center">
+                                <div class="col-lg-8 text-left">
+                                  <textarea class="form-control" v-model="text" placeholder="Message..."></textarea>
+                                </div>
+                                <div class="col-lg-4 text-center">
+                                  <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </tbody>
                 </table>
+                
               </div>
             </div>
 

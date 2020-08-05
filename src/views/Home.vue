@@ -47,7 +47,26 @@
         </div>
       </div>
     </div> -->
+    <section class="slice page-title has-bg-cover bg-size-cover" style="background-image: url(../../valorant.jpg); background-position: 50% 10%;">
+      <div class="container mask-container">
+        <div class="row">
+          <div class="col-md-6 offset-md-8">
+            <div class="">
+              <h3 class="heading heading-1 strong-600 text-capitalize mb-1 text-white">
+                <span>GoPlay</span>
+              </h3>
+            </div>
 
+            <!-- Fluid text paragraph -->
+            <div class="pb-4 mt-4">
+              <p class="lead text-white">
+                Parturient mus aenean a suspendisse est ligula eu dui a ultricies dictumst porttitor rhoncus a vestibulum.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="slice sct-color-1">
       <div class="container">
         <div class="row cols-md-space cols-sm-space cols-xs-space">
