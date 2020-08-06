@@ -76,7 +76,7 @@
             </div>
             <div class="pb-4 mt-4">
               <p class="lead text-white">
-                Parturient mus aenean a suspendisse est ligula eu dui a ultricies dictumst porttitor rhoncus a vestibulum.
+                Post, message, team up. No more mute teammates or toxic randoms. It's that easy. 
               </p>
             </div>
           </div>

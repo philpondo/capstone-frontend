@@ -109,7 +109,7 @@
               <div class="text-center text-lg-left">
                 <div class="copyright">
                   <ul class="copy-links no-margin">
-                    <li class="text-white"></li>
+                    <li class="text-white">Phil Pondo 2020</li>
                   </ul>
                 </div>
               </div>
@@ -120,37 +120,34 @@
                 <ul class="footer-menu footer-menu-sm">
                   <li>
                     <a
-                      href="https://webpixels.io"
+                      href="https://philpondo.github.io"
                       target="_blank"
                       style="padding-left: 0;"
-                      >Official website</a
+                      >Personal website</a
                     >
                   </li>
                   <li>
                     <a
-                      href="https://instagram.com/webpixels.io"
+                      href="https://github.com/philpondo"
                       target="_blank"
                       style="padding-left: 0;"
-                      >Instagram</a
+                      >Github</a
                     >
                   </li>
                   <li>
                     <a
-                      href="https://facebook.com/webpixels"
+                      href="https://linkedin.com/in/phillippondo"
                       target="_blank"
                       style="padding-left: 0;"
-                      >Facebook</a
+                      >LinkedIn</a
                     >
                   </li>
                   <li>
                     <a
-                      href="http://support.wrapbootstrap.com/knowledge_base/topics/usage-licenses"
+                      href="http://twitter.com/philpondo"
                       target="_blank"
-                      >License</a
+                      >Twitter</a
                     >
-                  </li>
-                  <li>
-                    <a href="https://goo.gl/9BbH7R" target="_blank">Buy now</a>
                   </li>
                 </ul>
               </div>
@@ -161,7 +158,7 @@
                 <ul class="social-media social-media--style-1-v4">
                   <li>
                     <a
-                      href="https://www.facebook.com/webpixels/"
+                      href="https://github.com/philpondo"
                       class="github"
                       target="_blank"
                       data-toggle="tooltip"
@@ -172,7 +169,7 @@
                   </li>
                   <li>
                     <a
-                      href="https://www.instagram.com/webpixels.io/"
+                      href="https://linkedin.com/in/phillippondo"
                       class="linkedin"
                       target="_blank"
                       data-toggle="tooltip"
@@ -183,7 +180,7 @@
                   </li>
                   <li>
                     <a
-                      href="https://twitter.com/webpixels"
+                      href="http://twitter.com/philpondo"
                       class="twitter"
                       target="_blank"
                       data-toggle="tooltip"

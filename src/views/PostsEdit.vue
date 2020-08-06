@@ -68,7 +68,7 @@
                     Update
                   </button>
                   <button
-                    v-on:click="destroyUser()"
+                    v-on:click="destroyPost()"
                     class="btn btn-styled btn-lg btn-block bg-secondary mt-4 text-white"
                   >
                     Delete
@@ -118,12 +118,11 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-    destroyPost: function (post) {
+    destroyPost: function () {
       if (confirm("Are you sure you want to delete this post?")) {
         axios.delete(`/api/posts/${this.post.id}`).then((response) => {
           console.log("Successfully destroyed", response.data);
-          // splice post out of posts array
-          this.posts.splice(this.posts.indexOf(post), 1);
+          this.$router.push(`/users/${this.post.user_id}`);
         });
       }
     },

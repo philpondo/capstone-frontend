@@ -84,7 +84,7 @@
                 <div v-if="user.posts.length == 0">
                   <h5 class="text-white">No Posts</h5>
                 </div>
-                <div v-for="post in posts" class="card bg-dark z-depth-2-top">
+                <div v-for="post in orderBy(posts, 'created_at', -1)" class="card bg-dark z-depth-2-top">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="card-header">
@@ -139,7 +139,10 @@
 <script>
 import axios from "axios";
 import moment from "moment";
+import Vue2Filters from "vue2-filters";
+
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function () {
     return {
       user: {},
