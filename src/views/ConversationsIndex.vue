@@ -40,7 +40,7 @@
       </div>
     </div> -->
     
-    <section class="slice-xl page-title has-bg-cover bg-size-cover" style="background-image: url(../../valorant.jpg); background-position: 50% 15%;">
+    <section class="slice-xl page-title has-bg-cover bg-size-cover" style="background-image: url(../../valorant.jpg); background-position: 50% 12%;">
       <div class="container mask-container">
         <div class="row">
           <div class="col-md-6 offset-md-8">
@@ -50,10 +50,8 @@
               </h3>
             </div>
 
-            <!-- Fluid text paragraph -->
             <div class="pb-4 mt-4">
               <p class="lead text-white">
-                Parturient mus aenean a suspendisse est ligula eu dui a ultricies dictumst porttitor rhoncus a vestibulum.
               </p>
             </div>
           </div>
@@ -64,28 +62,40 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 mt--150">
-            <div class="card">
+            <div class="form-group">
+              <input
+                v-model="attributeFilter"
+                list="attributes"
+                type="text"
+                class="form-control bg-dark border-dark text-white"
+                placeholder="Search"
+              />
+            </div>
+            <datalist id="attributes">
+              <option v-for="conversation in conversations">{{ conversation.partner.name }}</option>
+            </datalist>
+            <div class="card bg-dark border-dark">
               <div class="card-body">
                 <table class="table-cart">
                   <thead>
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
+                      <th class="border-secondary"></th>
+                      <th class="border-secondary"></th>
+                      <th class="border-secondary"></th>
+                      <th class="border-secondary"></th>
+                      <th class="border-secondary"></th>
+                      <th class="border-secondary"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="conversation in orderBy(conversations, 'created_at', -1)" class="cart-item">
+                    <tr v-for="conversation in orderBy(filterBy(conversations, attributeFilter), 'created_at', -1)" class="cart-item border-secondary">
                       <td class="product-image text-center" style="width:33%">
                         <div class="container">
                           <div class='col-md-8'>
                             <img v-if="conversation.partner.image" :src="conversation.partner.image" class="img-responsive" height="50px" style="text-align:center">
                             <img v-else src="/default-user.png" height="50px" width="50px">
                             <br>
-                            {{conversation.partner.name}}
+                            <div class="text-white">{{conversation.partner.name}}</div>
                           </div>
                         </div>
                       </td>
@@ -93,9 +103,10 @@
                       <td class="card-text mt-3" style="width:45%">
                         <div class="container">
                           <div class="row">
-                            <p style="display:block; text-overflow:ellipsis; width:220px; overflow:hidden; white-space:nowrap;">{{conversation.last_message.text}}</p>
+                            <p v-if="conversation.last_message" class="text-white" style="display:block; text-overflow:ellipsis; width:220px; overflow:hidden; white-space:nowrap;" >{{conversation.last_message.text}}</p>
+                            <p v-else class="text-white" style="display:block; text-overflow:ellipsis; width:220px; overflow:hidden; white-space:nowrap;" >No Messages</p>
                           </div>
-                          <div class="row text-muted">
+                          <div v-if="conversation.last_message" class="row text-muted">
                             {{ relativeDate(conversation.last_message.created_at) }}
                           </div>
                         </div>
@@ -103,7 +114,7 @@
 
                       <td class="product-quantity d-none d-md-table-cell">
                         <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
-                          <button v-on:click="showConversation(conversation)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open</button>
+                          <button v-on:click="showConversation(conversation)" class="btn bg-red" data-toggle="modal" data-target="#conversationModal">Open</button>
                         </div>
                       </td>
                       <td class="product-remove">
@@ -112,37 +123,39 @@
                         </a>
                       </td>
                     </tr>
-                    <div class="modal fade" data-backdrop="false" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                    <!-- Conversation Modal -->
+                    <div class="modal fade" data-backdrop="false" id="conversationModal" tabindex="-1" role="dialog" aria-labelledby="conversationModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Conversation with {{ partner.name }}</h5>
+                        <div class="modal-content bg-dark border-dark">
+                          <div class="modal-header border-secondary">
+                            <h5 class="modal-title text-white" id="conversationModalLabel">Conversation with {{ partner.name }}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
+                              <span class="text-white" aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <div v-for="message in messages" class="row">
                               <div v-if="partner.name == message.user_name" class="col-md-6">
-                                <p class="text-center">{{ message.user_name }}</p>
-                                <p>{{ message.text }}</p>
+                                <p class="text-center text-white">{{ message.user_name }}</p>
+                                <p class="text-white">{{ message.text }}</p>
                                 <p class="text-muted text-center">{{ relativeDate(message.created_at) }}</p>
                               </div>
                               <div v-else class="col-md-6 ml-auto text-right">
-                                <p class="text-center">{{ message.user_name }}</p>
-                                <p class="text-right">{{ message.text }}</p>
+                                <p class="text-center text-white">{{ message.user_name }}</p>
+                                <p class="text-right text-white">{{ message.text }}</p>
                                 <p class="text-muted text-center">{{ relativeDate(message.created_at) }}</p>
                               </div>
                             </div>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer border-secondary">
                             <div class="container">
                               <div class="row align-items-center">
                                 <div class="col-lg-8 text-left">
                                   <textarea class="form-control" v-model="text" placeholder="Message..."></textarea>
                                 </div>
                                 <div class="col-lg-4 text-center">
-                                  <button type="button" class="btn btn-primary" v-on:click="createMessage()">Send</button>
+                                  <button type="button" class="btn bg-red" v-on:click="createMessage()">Send</button>
                                 </div>
                               </div>
                             </div>
@@ -159,8 +172,6 @@
             <div class="row align-items-center pt-5">
               <div class="col-6">
                 <a href="#" class="link link--style-3">
-                    <i class="ion-android-arrow-back"></i>
-                    Return to shop
                 </a>
               </div>
             </div>
@@ -186,6 +197,7 @@ export default {
       partner: {},
       text: "",
       conversationId: "",
+      attributeFilter: "",
     };
   },
   created: function () {

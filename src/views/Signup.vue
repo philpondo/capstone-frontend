@@ -80,15 +80,10 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="card form-card form-card--style-2">
-                <div class="form-header text-center">
-                  <div class="form-header-icon">
-                    <i class="icon icon-3x ion-ios-personadd-outline"></i>
-                  </div>
-                </div>
+              <div class="card bg-dark border-dark form-card form-card--style-1">
                 <div class="form-body">
                   <div class="text-center px-2">
-                    <h4 class="heading heading-4 strong-400 mb-0">
+                    <h4 class="heading heading-4 strong-400 mb-0 text-white">
                       Create a new account
                     </h4>
                   </div>
@@ -107,7 +102,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Username</label>
+                          <label class="control-label text-white">Username</label>
                           <input
                             type="text"
                             class="form-control form-control-lg"
@@ -118,7 +113,7 @@
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Email</label>
+                          <label class="control-label text-white">Email</label>
                           <input
                             type="email"
                             class="form-control form-control-lg"
@@ -131,7 +126,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="rankFormControlSelect">Rank</label>
+                          <label class="control-label text-white" for="rankFormControlSelect">Rank</label>
                           <select
                             class="form-control"
                             id="rankFormControlSelect"
@@ -165,7 +160,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="playstyleFormControlSelect"
+                          <label class="control-label text-white" for="playstyleFormControlSelect"
                             >Playstyle</label
                           >
                           <select
@@ -184,7 +179,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Password</label>
+                          <label class="control-label text-white">Password</label>
                           <input
                             type="password"
                             class="form-control form-control-lg"
@@ -194,7 +189,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group has-feedback">
-                          <label class="control-label">Confirm Password</label>
+                          <label class="control-label text-white">Confirm Password</label>
                           <input
                             type="password"
                             class="form-control form-control-lg"
@@ -225,7 +220,7 @@
 
                     <button
                       type="submit"
-                      class="btn btn-styled  btn-base-1 mt-4"
+                      class="btn btn-styled bg-red mt-4"
                     >
                       Sign up
                     </button>
@@ -243,7 +238,7 @@
 <script>
 import axios from "axios";
 export default {
-  data: function() {
+  data: function () {
     return {
       name: "",
       email: "",
@@ -256,12 +251,12 @@ export default {
     };
   },
   methods: {
-    setFile: function(event) {
+    setFile: function (event) {
       if (event.target.files.length > 0) {
         this.image = event.target.files[0];
       }
     },
-    submit: function() {
+    submit: function () {
       var formData = new FormData();
       formData.append("name", this.name);
       formData.append("email", this.email);

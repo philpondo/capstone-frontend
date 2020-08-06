@@ -8322,16 +8322,16 @@ input:checked + .toggle-switch-slider:before {
   display: block;
   overflow: hidden;
   padding: 0.625rem 1.25rem;
-  border: 1px solid #3452ff;
+  border: 1px solid #ff3434;
   border-radius: 2px;
   color: #fff;
-  background-color: #3452ff;
+  background-color: #ff3434;
   outline: none;
 }
 .custom-input-file + label:hover,
 .custom-input-file.has-focus + label,
 .custom-input-file:focus + label {
-  background-color: #0127ff;
+  background-color: #ff0101;
 }
 .no-js .custom-input-file + label {
   display: none;

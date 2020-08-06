@@ -17,7 +17,7 @@
     <div class="header">
       <!-- Navbar -->
       <nav
-        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-ligt bg-default"
+        class="navbar navbar-expand-lg navbar--bold navbar--bb-1px navbar-inverse bg-dark"
       >
         <div class="container-fluid navbar-container">
           <div class="d-inline-block">
@@ -85,14 +85,14 @@
             <router-link
               v-if="!isLoggedIn()"
               to="/login"
-              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
+              class="btn btn-styled btn-sm text-uppercase btn-circle bg-red"
             >
               Login
             </router-link>
             <router-link
               v-if="isLoggedIn()"
               to="/logout"
-              class="btn btn-styled btn-sm btn-base-1 text-uppercase btn-circle"
+              class="btn btn-styled btn-sm text-uppercase btn-circle bg-red"
             >
               Logout
             </router-link>
@@ -162,34 +162,34 @@
                   <li>
                     <a
                       href="https://www.facebook.com/webpixels/"
-                      class="facebook"
+                      class="github"
                       target="_blank"
                       data-toggle="tooltip"
-                      data-original-title="Facebook"
+                      data-original-title="Github"
                     >
-                      <i class="fa fa-facebook"></i>
+                      <i class="fa fa-github"></i>
                     </a>
                   </li>
                   <li>
                     <a
                       href="https://www.instagram.com/webpixels.io/"
-                      class="instagram"
+                      class="linkedin"
                       target="_blank"
                       data-toggle="tooltip"
-                      data-original-title="Instagram"
+                      data-original-title="Linkedin"
                     >
-                      <i class="fa fa-instagram"></i>
+                      <i class="fa fa-linkedin"></i>
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://dribbble.com/webpixels"
-                      class="dribbble"
+                      href="https://twitter.com/webpixels"
+                      class="twitter"
                       target="_blank"
                       data-toggle="tooltip"
-                      data-original-title="Dribbble"
+                      data-original-title="Tribbble"
                     >
-                      <i class="fa fa-dribbble"></i>
+                      <i class="fa fa-twitter"></i>
                     </a>
                   </li>
                 </ul>

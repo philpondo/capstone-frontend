@@ -32,15 +32,10 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-5">
-              <div class="card form-card form-card--style-2">
-                <div class="form-header text-center">
-                  <div class="form-header-icon">
-                    <i class="icon ion-log-in"></i>
-                  </div>
-                </div>
+              <div class="card bg-dark border-dark form-card form-card--style-1">
                 <div class="form-body">
                   <div class="text-center px-2">
-                    <h4 class="heading heading-4 strong-4">
+                    <h4 class="heading heading-4 strong-4 text-white">
                       Sign in to find teammates!
                     </h4>
                   </div>
@@ -56,7 +51,7 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="form-group">
-                          <label>Email</label>
+                          <label class="text-white">Email</label>
                           <input
                             type="email"
                             class="form-control form-control-lg"
@@ -69,7 +64,7 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="form-group has-feedback">
-                          <label>Password</label>
+                          <label class="text-white">Password</label>
                           <input
                             type="password"
                             class="form-control form-control-lg"
@@ -81,7 +76,7 @@
 
                     <button
                       type="submit"
-                      class="btn btn-styled btn-lg btn-base-1 btn-block mt-4"
+                      class="btn btn-styled btn-lg bg-red btn-block mt-4"
                     >
                       Sign in
                     </button>
@@ -111,7 +106,7 @@
 import axios from "axios";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       email: "",
       password: "",
@@ -119,7 +114,7 @@ export default {
     };
   },
   methods: {
-    submit: function() {
+    submit: function () {
       var params = {
         email: this.email,
         password: this.password,

@@ -8,9 +8,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3">
-            <div class="card">
-              <div class="card-title">
-                <h5 class="heading heading-5 strong-500">
+            <div class="card bg-dark border-dark">
+              <div class="card-title text-center">
+                <h5 class="heading heading-5 strong-500 text-white">
                   Edit Post
                 </h5>
               </div>
@@ -23,7 +23,7 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="form-group">
-                        <label>Title</label>
+                        <label class="text-white">Title</label>
                         <input
                           type="text"
                           class="form-control form-control-lg"
@@ -36,7 +36,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label>Players Needed:</label>
+                        <label class="text-white">Players Needed:</label>
                         <select class="form-control" v-model="post.players_needed">
                           <option>1</option>
                           <option>2</option>
@@ -50,7 +50,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label for="contentTextarea">Content</label>
+                        <label class="text-white" for="contentTextarea">Content</label>
                         <textarea
                           class="form-control"
                           id="contentTextarea"
@@ -62,10 +62,16 @@
                   </div>
                   <button
                     type="submit"
-                    class="btn btn-styled btn-lg btn-block btn-base-1 mt-4"
+                    class="btn btn-styled btn-lg btn-block bg-red mt-4"
                     value="Create"
                   >
                     Update
+                  </button>
+                  <button
+                    v-on:click="destroyUser()"
+                    class="btn btn-styled btn-lg btn-block bg-secondary mt-4 text-white"
+                  >
+                    Delete
                   </button>
                 </form>
               </div>

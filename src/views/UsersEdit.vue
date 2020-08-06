@@ -8,10 +8,10 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="card form-card form-card--style-1">
+              <div class="card bg-dark border-dark form-card form-card--style-1">
                 <div class="form-body">
                   <div class="text-center px-2">
-                    <h4 class="heading heading-4 strong-400 mb-0">
+                    <h4 class="heading heading-4 strong-400 mb-0 text-white">
                       Edit Profile
                     </h4>
                   </div>
@@ -30,7 +30,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Username</label>
+                          <label class="control-label text-white">Username</label>
                           <input
                             type="text"
                             class="form-control form-control-lg"
@@ -41,7 +41,7 @@
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Email</label>
+                          <label class="control-label text-white">Email</label>
                           <input
                             type="email"
                             class="form-control form-control-lg"
@@ -54,7 +54,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="rankFormControlSelect">Rank</label>
+                          <label class="control-label text-white" for="rankFormControlSelect">Rank</label>
                           <select
                             class="form-control"
                             id="rankFormControlSelect"
@@ -88,7 +88,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="playstyleFormControlSelect"
+                          <label class="control-label text-white" for="playstyleFormControlSelect"
                             >Playstyle</label
                           >
                           <select
@@ -107,7 +107,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="control-label">Password</label>
+                          <label class="control-label text-white">Password</label>
                           <input
                             type="password"
                             class="form-control form-control-lg"
@@ -117,7 +117,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group has-feedback">
-                          <label class="control-label">Confirm Password</label>
+                          <label class="control-label text-white">Confirm Password</label>
                           <input
                             type="password"
                             class="form-control form-control-lg"
@@ -128,12 +128,13 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-8">
+                      <div class="col-md-7 mt-3 text-center">
                         <input
                           type="file"
                           name="file-1[]"
                           id="file-1"
                           class="custom-input-file custom-input-file--1"
+                          style="background-color:#dc3545;"
                           data-multiple-caption="{count} files selected"
                           multiple
                           v-on:change="setFile($event)"
@@ -145,19 +146,19 @@
                         </label>
                       </div>
                     </div>
-                    <div class="row align-items-center">
-                      <div class="col-6 text-left">
+                    <div class="row">
+                      <div class="col-md-6 text-center">
                         <button
                           type="submit"
-                          class="btn btn-styled btn-base-1 mt-4"
+                          class="btn btn-styled bg-red mt-4"
                         >
                           Update
                         </button>
                       </div>
-                      <div class="col-6 text-right">
+                      <div class="col-md-6 text-center">
                         <button
                           v-on:click="destroyUser()"
-                          class="btn btn-styled btn-base-1 mt-4"
+                          class="btn btn-styled bg-red mt-4"
                         >
                           Delete
                         </button>
@@ -199,7 +200,7 @@ export default {
   methods: {
     setFile: function (event) {
       if (event.target.files.length > 0) {
-        this.image = event.target.files[0];
+        this.user.image = event.target.files[0];
       }
     },
     editUser: function () {
